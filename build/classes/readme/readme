@@ -1,0 +1,8 @@
+CREAR EL FORMULARIO PARA INGRESAR LOS VALORES PREDETERMINADOS DE LOS SERVICIOS
+para realizar esta acción tenemos la opción de diseñar en un combobox que traiga los datos de la base de datos y que cuando cambie
+de valor en otro combobox de la opción de linea sólo se cargen la opción de esa marca (Investigar la opción de realizar esta acción
+con una lista de enum's para no afectar la base de datos con tantos datos)
+1.Creamos una clase que gestione la conexion a la base de datos
+
+COTIZACION
+se crea el vehículo, luego se van agregando las piezas, hay que crear primero el valor de los servicios
