@@ -20,7 +20,7 @@ public class mdlPropietario {
     //Variables que vamos a utilizar
     private String sSQL = "";// variable que almacena la instrucción SQL
     private String sSQLp = "";//segunda instrucción para la tabla persona
-    public Integer totalregistros;
+    public Integer totalregistros = 0;
     
     /* CRUD */
     

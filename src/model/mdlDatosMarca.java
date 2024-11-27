@@ -1,10 +1,14 @@
 package model;
 
 import controller.ctrMarca;
+import java.util.ArrayList;
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,16 +27,48 @@ public class mdlDatosMarca {
     private String sSQL = "";// variable que almacena la instrucción SQL
     public Integer totalregistros;
 
+    /*
+    * https://www.youtube.com/watch?v=yMWwOfrv2VE min 22:40
+    public java.util.List<ctrMarca> mostrarMarca() { */
+    // Suponiendo que los JComboBox están inicializados y tienen elementos
+    public Vector<ctrMarca> mostrarMarca() {
+        String sSQL = "SELECT IDmarca, descripcion FROM marca";
+
+        //java.util.List<ctrMarca> datos = new java.util.ArrayList<>(); // Especificar el paquete completo
+        Vector<ctrMarca> datos = new Vector<ctrMarca>();
+
+        try (Statement st = cn.createStatement(); ResultSet rs = st.executeQuery(sSQL)) {
+            ctrMarca mar = new ctrMarca();
+            mar.setIDmarca(0);
+            mar.setDescripcion("Selecciona una marca");
+            datos.add(mar);
+
+            while (rs.next()) {
+                mar = new ctrMarca();
+                mar.setIDmarca(rs.getInt("IDmarca"));
+                mar.setDescripcion(rs.getString("descripcion"));
+                datos.add(mar);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener las marcas: " + e.toString());
+        }
+
+        return datos;
+    }
+
+    /*
+    * Función para rellenar los combos del formulario
+    
     public void PasarDatoCombo(String tabla, String valor, JComboBox combo) {
+        
+        String busqueda_marca = "";
+        
         String sSQL = "SELECT * FROM " + tabla;// variable que almacena la instrucción SQL
-        Statement st;
-        Conexion mysql = new Conexion();
-        Connection cn = mysql.conectar();
 
         try {
-            st = cn.createStatement();
+            Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-
+            
             while (rs.next()) {
                 combo.addItem(rs.getString(valor));
             }
@@ -40,8 +76,7 @@ public class mdlDatosMarca {
 
             JOptionPane.showMessageDialog(null, "ERROR" + e.toString());
         }
-    }
-
+    }*/
     public DefaultTableModel mostrar(String buscar) {
 
         DefaultTableModel modelo;
@@ -74,6 +109,15 @@ public class mdlDatosMarca {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
+        }finally {
+            // Cerrar los recursos 
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
         }
     }
 
@@ -102,14 +146,23 @@ public class mdlDatosMarca {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
+        } finally {
+            // Cerrar los recursos 
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
         }
     }
-    
-     public boolean editar(ctrMarca fila) {
+
+    public boolean editar(ctrMarca fila) {
         /* instrucción SQL */
         sSQL = "UPDATE marca SET descripcion=? WHERE IDmarca=?";
-        
-         try {
+
+        try {
             //REGISTROS SE OBTIENEN DE LA CLASE CTREMPLEADO DEL METODO GET
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
@@ -126,10 +179,19 @@ public class mdlDatosMarca {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
+        }finally {
+            // Cerrar los recursos 
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
         }
-     }
-     
-     /*
+    }
+
+    /*
     * ELIMINAR, función booleana porque devuelve verdadero o falso que recibe como parámetro la clase del controlador 
     * ctrPropietario lleva dos sentencias SQL, para la tabla persona y otra para la tabla propietario
      */
@@ -140,7 +202,7 @@ public class mdlDatosMarca {
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
-           
+
             pst.setInt(1, fila.getIDmarca());
 
             int n = pst.executeUpdate();
@@ -162,6 +224,15 @@ public class mdlDatosMarca {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
+        }finally {
+            // Cerrar los recursos 
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
         }
     }
 }

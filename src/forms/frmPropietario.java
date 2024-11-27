@@ -28,7 +28,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     void inhabilitar() {
         txtIdpropietario.setVisible(false);
         
-        cboTipodocumento.setEditable(false);
+        cboTipodocumento.setEnabled(false);
         txtNumdocumento.setEnabled(false);
         txtNombres.setEnabled(false);
         txtApellidos.setEnabled(false);
@@ -52,7 +52,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     void habilitar() {
         txtIdpropietario.setVisible(false);
         
-        cboTipodocumento.setEditable(true);
+        cboTipodocumento.setEnabled(true);
         txtNumdocumento.setEnabled(true);
         txtNombres.setEnabled(true);
         txtApellidos.setEnabled(true);
@@ -238,6 +238,9 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        btnGuardar.setBackground(new java.awt.Color(51, 153, 255));
+        btnGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,6 +250,10 @@ public class frmPropietario extends javax.swing.JInternalFrame {
 
         lblBuscar.setText("Buscar");
 
+        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,6 +261,9 @@ public class frmPropietario extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalir.setBackground(new java.awt.Color(255, 102, 51));
+        btnSalir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,6 +271,9 @@ public class frmPropietario extends javax.swing.JInternalFrame {
             }
         });
 
+        btnCancelar.setBackground(new java.awt.Color(255, 102, 51));
+        btnCancelar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +320,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnSalir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 659, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 591, Short.MAX_VALUE)
                         .addComponent(lblTotalregistros)
                         .addGap(250, 250, 250))
                     .addGroup(jPanel2Layout.createSequentialGroup()

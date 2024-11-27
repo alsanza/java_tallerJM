@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/forms/frmMarca.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/forms/frmPrecioporServicio.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/mdlDatosMarca.java</file>
+            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/mdlPrecioPorPieza.java</file>
+            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/controller/ctrPrecioPieza.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/views/mainView.java</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/mdlVehiculo.java</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/readme/readme</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/mdlLinea.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/controller/ctrMarca.java</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/controller/ctrLinea.java</file>
+            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/forms/frmEmpleados.java</file>
         </group>
     </open-files>
 </project-private>

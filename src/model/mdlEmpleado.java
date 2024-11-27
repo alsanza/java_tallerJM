@@ -211,7 +211,7 @@ public class mdlEmpleado {
     }
 
     public DefaultTableModel login(String login, String password) {
-        DefaultTableModel modelo;
+        DefaultTableModel modelo= new DefaultTableModel();
 
         String[] titulos = {"ID", "Nombres", "Apellidos", "Usuario", "password", "estado"};
         String[] registro = new String[6];

@@ -32,4 +32,9 @@ public class ctrMarca {
         this.descripcion = descripcion;
     }
     
+    @Override
+    public String toString() {
+        return this.descripcion;
+    }
+    
 }

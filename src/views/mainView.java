@@ -5,6 +5,7 @@
  */
 package views;
 
+import forms.frmAyuda;
 import forms.frmCotizar;
 import forms.frmEmpleados;
 import forms.frmMarca;
@@ -48,11 +49,14 @@ public class mainView extends javax.swing.JFrame {
         mnuEmpleado = new javax.swing.JMenuItem();
         mnuPropietarios = new javax.swing.JMenuItem();
         mnuProveedores = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
+        accionesMenu = new javax.swing.JMenu();
         jmnMarcaVehiculo = new javax.swing.JMenuItem();
         jmnPreciosServicios = new javax.swing.JMenuItem();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        mnuItemContenido = new javax.swing.JMenuItem();
+        aboutMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,8 +124,9 @@ public class mainView extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Acciones");
+        accionesMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/business.png"))); // NOI18N
+        accionesMenu.setMnemonic('h');
+        accionesMenu.setText("Acciones");
 
         jmnMarcaVehiculo.setText("Marcas");
         jmnMarcaVehiculo.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +134,7 @@ public class mainView extends javax.swing.JFrame {
                 jmnMarcaVehiculoActionPerformed(evt);
             }
         });
-        helpMenu.add(jmnMarcaVehiculo);
+        accionesMenu.add(jmnMarcaVehiculo);
 
         jmnPreciosServicios.setText("Precios servicios");
         jmnPreciosServicios.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +142,7 @@ public class mainView extends javax.swing.JFrame {
                 jmnPreciosServiciosActionPerformed(evt);
             }
         });
-        helpMenu.add(jmnPreciosServicios);
+        accionesMenu.add(jmnPreciosServicios);
 
         contentMenuItem.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         contentMenuItem.setMnemonic('c');
@@ -147,7 +152,7 @@ public class mainView extends javax.swing.JFrame {
                 contentMenuItemActionPerformed(evt);
             }
         });
-        helpMenu.add(contentMenuItem);
+        accionesMenu.add(contentMenuItem);
 
         aboutMenuItem.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         aboutMenuItem.setMnemonic('a');
@@ -157,7 +162,32 @@ public class mainView extends javax.swing.JFrame {
                 aboutMenuItemActionPerformed(evt);
             }
         });
-        helpMenu.add(aboutMenuItem);
+        accionesMenu.add(aboutMenuItem);
+
+        menuBar.add(accionesMenu);
+
+        helpMenu.setMnemonic('h');
+        helpMenu.setText("Ayuda");
+
+        mnuItemContenido.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemContenido.setMnemonic('a');
+        mnuItemContenido.setText("Contenido");
+        mnuItemContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemContenidoActionPerformed(evt);
+            }
+        });
+        helpMenu.add(mnuItemContenido);
+
+        aboutMenuItem2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        aboutMenuItem2.setMnemonic('a');
+        aboutMenuItem2.setText("Términos y condiciones");
+        aboutMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItem2ActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutMenuItem2);
 
         menuBar.add(helpMenu);
 
@@ -174,7 +204,7 @@ public class mainView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -238,6 +268,18 @@ public class mainView extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_jmnMarcaVehiculoActionPerformed
 
+    private void mnuItemContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemContenidoActionPerformed
+        // TODO add your handling code here:
+        frmAyuda form = new frmAyuda();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_mnuItemContenidoActionPerformed
+
+    private void aboutMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aboutMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -275,6 +317,8 @@ public class mainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem aboutMenuItem2;
+    private javax.swing.JMenu accionesMenu;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
@@ -285,6 +329,7 @@ public class mainView extends javax.swing.JFrame {
     private javax.swing.JDesktopPane mainPane;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mnuEmpleado;
+    private javax.swing.JMenuItem mnuItemContenido;
     private javax.swing.JMenuItem mnuPropietarios;
     private javax.swing.JMenuItem mnuProveedores;
     private javax.swing.JMenuItem openMenuItem;

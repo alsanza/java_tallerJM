@@ -5,19 +5,57 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class mdlLinea {
 
     /*Primero establecemos conexion a la bd*/
-    private Conexion mysql = new Conexion();
-    private Connection cn = mysql.conectar();
+    private final Conexion mysql = new Conexion();
+    private final Connection cn = mysql.conectar();
     private String sSQL = "";// variable que almacena la instrucción SQL
     private String sSQLt = "";//segunda instrucción para la tabla persona
     public Integer totalregistros;
 
-    /* Segundo función para mostrar los registros de las tabla empleado */
+    public Vector<ctrLinea> mostrarLineas(Integer idMarca) {
+        String busqueda_marca = "";
+
+        String sSQL = "SELECT * FROM linea_vehiculo WHERE IDmarca=" + idMarca;// variable que almacena la instrucción SQL
+
+        Vector<ctrLinea> datos = new Vector<ctrLinea>();
+        ctrLinea mar = null;
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            mar = new ctrLinea();
+            mar.setIDmarca(0);
+            mar.setDescripcion("Selecciona la línea");
+
+            datos.add(mar);
+
+            while (rs.next()) {
+                mar = new ctrLinea();
+                mar.setIDmarca(rs.getInt("IDlinea_vehiculo"));
+                mar.setDescripcion(rs.getString("descripcion"));
+
+                datos.add(mar);
+            }
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "ERROR" + e.toString());
+        }
+
+        return datos;
+    }
+
+    /*
+    * No se necesitaría este código de aquí para abajo
+    */
+
+ /* Segundo función para mostrar los registros de las tabla empleado */
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
@@ -82,8 +120,6 @@ public class mdlLinea {
             PreparedStatement pstp = cn.prepareStatement(sSQLt);
 
             pst.setInt(1, dts.getIDmarca());
-
-           
 
             int n = pst.executeUpdate();
 
@@ -151,7 +187,6 @@ public class mdlLinea {
         sSQL = "DELETE FROM linea WHERE IDlinea=?";
 
         //sSQLt = "DELETE FROM persona WHERE IDpersona=?";
-
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -192,8 +227,8 @@ public class mdlLinea {
         modelo = new DefaultTableModel(null, titulos);
 
         // Creamos la consulta SQL para traer de la tabla persona el nombre y el apellido y relacionamos con la tabla empelado
-        sSQL = "SELECT p.IDpersona,p.nombres,p.apellidos,p.estado,e.usuario,e.password FROM persona p INNER JOIN empleado e" + 
-                " ON p.IDpersona=e.IDempleado WHERE e.usuario='"+ login +"' AND e.password='" + password + "' AND p.estado=1";
+        sSQL = "SELECT p.IDpersona,p.nombres,p.apellidos,p.estado,e.usuario,e.password FROM persona p INNER JOIN empleado e"
+                + " ON p.IDpersona=e.IDempleado WHERE e.usuario='" + login + "' AND e.password='" + password + "' AND p.estado=1";
 
         try {
             Statement st = cn.createStatement();
@@ -204,7 +239,7 @@ public class mdlLinea {
                 registro[1] = rs.getString("nombres");
                 registro[2] = rs.getString("apellidos");
                 registro[3] = rs.getString("estado");
-                
+
                 registro[4] = rs.getString("usuario");
                 registro[5] = rs.getString("password");
 

@@ -1,0 +1,14 @@
+# Configuración para finales de línea
+* text=auto
+
+# Forzar LF para archivos específicos
+*.sh text eol=lf
+*.java text eol=lf
+
+# Forzar CRLF para archivos específicos (si usas Windows)
+*.bat text eol=crlf
+
+# Configuración para binarios
+*.jpg binary
+*.png binary
+*.gif binary
