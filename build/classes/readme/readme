@@ -4,5 +4,16 @@ de valor en otro combobox de la opción de linea sólo se cargen la opción de e
 con una lista de enum's para no afectar la base de datos con tantos datos)
 1.Creamos una clase que gestione la conexion a la base de datos
 
+Consulta SQL de la tabla vehículo, que se relaciona con la tabla propietario,marca y linea
+SELECT per.nombres,per.apellidos,v.placa,m.descripcion,l.descripcion,v.modelo,v.color FROM vehiculo v INNER JOIN propietario p" + 
+" ON v.idpropietario=p.IDpropietario INNER JOIN persona per ON p.IDpropietario = per.IDpersona INNER JOIN marca m ON" + 
+" v.fk_marca=m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea=l.IDlinea_vehiculo WHERE IDvehiculo=1";
+
 COTIZACION
+Para este módulo en el campo Nro cotizacion, quiero:
+1.  que me traiga el último ID de la cotización anterior y que le incremente un dígito y lo muestre en el campo cotización nro.
+2. 
 se crea el vehículo, luego se van agregando las piezas, hay que crear primero el valor de los servicios
+
+crear un método global que cargue todos los combos del sistema para mostrar la marca y la línea de los vehículo, y sobrecargar 
+en el constructor con los datos que va a mostrar 

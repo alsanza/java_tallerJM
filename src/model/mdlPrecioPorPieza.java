@@ -31,7 +31,7 @@ public class mdlPrecioPorPieza {
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT * FROM valor_servicio_pieza WHERE IDvalor LIKE '%" + buscar + "%' ORDER BY IDvalor DESC";
+        sSQL = "SELECT * FROM valor_servicio_pieza WHERE IDvalor LIKE '%" + buscar + "%' ORDER BY marca ASC";
 
         /* Capturador de errores */
         try {

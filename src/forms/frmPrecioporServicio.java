@@ -5,12 +5,11 @@ import controller.ctrMarca;
 import controller.ctrPrecioPieza;
 import java.awt.event.ItemEvent;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.mdlDatosMarca;
+import model.cargarCombo;
 import model.mdlLinea;
 import model.mdlPrecioPorPieza;
 
@@ -19,33 +18,24 @@ import model.mdlPrecioPorPieza;
  * @author alsan
  */
 public class frmPrecioporServicio extends javax.swing.JInternalFrame {
-    
-    ctrMarca marcaSeleccionada = (ctrMarca) cboMarca.getSelectedItem();
-    ctrLinea lineaSeleccionada = (ctrLinea) cboLinea.getSelectedItem();
-    
+
+    //private JComboBox<ctrMarca> cboMarca;
     public frmPrecioporServicio() {
         initComponents();
         inhabilitar();
         mostrar("");
-        cargarCombo();
+        cargarCombo(new cargarCombo(), cboMarca);
     }
 
-    void cargarCombo() {
-
-        // Obtener la lista de ctrMarca
-        mdlDatosMarca mar = new mdlDatosMarca();
-        //mdlLinea lin = new mdlLinea();
-
-        //List<ctrMarca> marcas = mar.mostrarMarca();
-        
-        Vector<ctrMarca> marcas = mar.mostrarMarca();
-        
-         // Crear el DefaultComboBoxModel y añadir los elementos
-        DefaultComboBoxModel<ctrMarca> modelMarca = new DefaultComboBoxModel<>(marcas);
-        
-        
-        // Asignar el modelo al JComboBox existente
-        //cboMarca.setModel(modelMarca);
+    public static void cargarCombo(cargarCombo mar, JComboBox<ctrMarca> combo) {
+// Obtener la lista de ctrMarca 
+        List<ctrMarca> marcas = mar.mostrarMarca();
+// Crear el DefaultComboBoxModel y añadir los elementos 
+        DefaultComboBoxModel<ctrMarca> modelo = new DefaultComboBoxModel<>();
+        for (ctrMarca marca : marcas) {
+            modelo.addElement(marca);
+        } // Asignar el modelo al JComboBox existente 
+        combo.setModel(modelo);
     }
 
     private String accion = "guardar";
@@ -357,8 +347,9 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
                             .addComponent(borderPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(borderPanel2Layout.createSequentialGroup()
                                 .addComponent(borderPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                .addComponent(borderPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(borderPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(21, 21, 21))
                     .addGroup(borderPanel2Layout.createSequentialGroup()
                         .addComponent(btnNuevo)
@@ -370,15 +361,15 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
                         .addComponent(btnSalir)
                         .addGap(32, 32, 32)
                         .addComponent(lblTotalregistros)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(180, Short.MAX_VALUE))))
         );
         borderPanel2Layout.setVerticalGroup(
             borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borderPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(borderPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(borderPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(borderPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(borderPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addComponent(borderPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +384,7 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
                             .addComponent(btnNuevo)
                             .addComponent(btnGuardar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -414,12 +405,9 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             ctrMarca mar = (ctrMarca) cboMarca.getSelectedItem();
-
             mdlLinea linea = new mdlLinea();
-            DefaultComboBoxModel modlLinea = new DefaultComboBoxModel(linea.mostrarLineas(mar.getIDmarca()));
-
+            DefaultComboBoxModel<ctrLinea> modlLinea = new DefaultComboBoxModel<>(linea.mostrarLineas(mar.getIDmarca()));
             cboLinea.setModel(modlLinea);
-
         }
     }//GEN-LAST:event_cboMarcaItemStateChanged
 
@@ -483,19 +471,27 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
 
         /* pasamos la informacion que viene de las cajas de texto y recibe los datos por el metod Setter */
         int seleccionado = cboMarca.getSelectedIndex();
-        //dts.setMarca((String) cboMarca.getItemAt(seleccionado));
+        dts.setMarca(cboMarca.getItemAt(seleccionado).toString());
 
-        dts.setLinea((String) cboLinea.getItemAt(seleccionado));
-        dts.setModelo((String) cboModelo.getItemAt(seleccionado));
-        dts.setPieza((String) cboPieza.getItemAt(seleccionado));
-        dts.setServicio((String) cboProceso.getItemAt(seleccionado));
+        int seleccion = cboLinea.getSelectedIndex();
+        dts.setLinea(cboLinea.getItemAt(seleccion).toString());
+        
+        int seleccionModelo = cboModelo.getSelectedIndex();
+        dts.setModelo(cboModelo.getItemAt(seleccionModelo));
+        
+        int seleccionPieza = cboPieza.getSelectedIndex();
+        dts.setPieza(cboPieza.getItemAt(seleccionPieza));
+        
+        int seleccionProceso = cboProceso.getSelectedIndex();
+        dts.setServicio(cboProceso.getItemAt(seleccionProceso));
+        
         dts.setValor(Double.parseDouble(txtPrecio.getText()));
 
         /* PREGUNTAMOS QUE ACCION VAMOS A EJECUTAR */
         if (accion.equals("guardar")) {
 
             if (func.insertar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, "El precio fue guardado con éxito");
+                JOptionPane.showMessageDialog(rootPane, "El registro fue guardado con éxito");
                 mostrar("");
                 inhabilitar();
             }
@@ -503,7 +499,7 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
             dts.setIdValor(Integer.parseInt(txtIdValor.getText()));
 
             if (func.editar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, "El precio fué modificado con éxito");
+                JOptionPane.showMessageDialog(rootPane, "El registro fué modificado con éxito");
                 mostrar("");
                 inhabilitar();
             }
@@ -549,16 +545,24 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmPrecioporServicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmPrecioporServicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmPrecioporServicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmPrecioporServicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmPrecioporServicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmPrecioporServicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPrecioporServicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmPrecioporServicio.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -581,8 +585,8 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
-    public static javax.swing.JComboBox<String> cboLinea;
-    public static javax.swing.JComboBox<String> cboMarca;
+    public static javax.swing.JComboBox<ctrLinea> cboLinea;
+    public static javax.swing.JComboBox<ctrMarca> cboMarca;
     private javax.swing.JComboBox<String> cboModelo;
     private javax.swing.JComboBox<String> cboPieza;
     private javax.swing.JComboBox<String> cboProceso;

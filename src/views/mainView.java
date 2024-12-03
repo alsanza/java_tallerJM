@@ -8,10 +8,13 @@ package views;
 import forms.frmAyuda;
 import forms.frmCotizar;
 import forms.frmEmpleados;
+import forms.frmInventarioVehiculo;
 import forms.frmMarca;
 import forms.frmPrecioporServicio;
 import forms.frmPropietario;
+import forms.frmProveedores;
 import forms.frmVehiculo;
+import forms.frmVehiculoTestMarca;
 
 
 /**
@@ -50,10 +53,17 @@ public class mainView extends javax.swing.JFrame {
         mnuPropietarios = new javax.swing.JMenuItem();
         mnuProveedores = new javax.swing.JMenuItem();
         accionesMenu = new javax.swing.JMenu();
-        jmnMarcaVehiculo = new javax.swing.JMenuItem();
-        jmnPreciosServicios = new javax.swing.JMenuItem();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        jmnMarcaVehiculo = new javax.swing.JMenuItem();
+        mnuItemProcesos = new javax.swing.JMenu();
+        mnuPreciosServicios = new javax.swing.JMenuItem();
+        mnuItemCotizacion = new javax.swing.JMenuItem();
+        mnuItemInventario = new javax.swing.JMenuItem();
+        mnuItemReportes = new javax.swing.JMenu();
+        mnuPreciosServicios1 = new javax.swing.JMenuItem();
+        mnuItemCotizacion1 = new javax.swing.JMenuItem();
+        mnuItemInventario1 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         mnuItemContenido = new javax.swing.JMenuItem();
         aboutMenuItem2 = new javax.swing.JMenuItem();
@@ -62,6 +72,7 @@ public class mainView extends javax.swing.JFrame {
 
         mainPane.setBackground(new java.awt.Color(102, 255, 102));
 
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
         fileMenu.setMnemonic('f');
         fileMenu.setText("Archivo");
 
@@ -78,6 +89,7 @@ public class mainView extends javax.swing.JFrame {
         saveAsMenuItem.setDisplayedMnemonicIndex(5);
         fileMenu.add(saveAsMenuItem);
 
+        exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/small/logout.png"))); // NOI18N
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Salir");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -89,9 +101,9 @@ public class mainView extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/8.png"))); // NOI18N
+        editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/providers.png"))); // NOI18N
         editMenu.setMnemonic('e');
-        editMenu.setText("Persona");
+        editMenu.setText("Administración");
 
         mnuEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajadores.png"))); // NOI18N
         mnuEmpleado.setMnemonic('t');
@@ -118,31 +130,21 @@ public class mainView extends javax.swing.JFrame {
         });
         editMenu.add(mnuPropietarios);
 
+        mnuProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/proveedores.png"))); // NOI18N
         mnuProveedores.setMnemonic('p');
         mnuProveedores.setText("Proveedores");
+        mnuProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuProveedoresActionPerformed(evt);
+            }
+        });
         editMenu.add(mnuProveedores);
 
         menuBar.add(editMenu);
 
-        accionesMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/business.png"))); // NOI18N
+        accionesMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/car.png"))); // NOI18N
         accionesMenu.setMnemonic('h');
-        accionesMenu.setText("Acciones");
-
-        jmnMarcaVehiculo.setText("Marcas");
-        jmnMarcaVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnMarcaVehiculoActionPerformed(evt);
-            }
-        });
-        accionesMenu.add(jmnMarcaVehiculo);
-
-        jmnPreciosServicios.setText("Precios servicios");
-        jmnPreciosServicios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnPreciosServiciosActionPerformed(evt);
-            }
-        });
-        accionesMenu.add(jmnPreciosServicios);
+        accionesMenu.setText("Vehículos");
 
         contentMenuItem.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         contentMenuItem.setMnemonic('c');
@@ -156,7 +158,7 @@ public class mainView extends javax.swing.JFrame {
 
         aboutMenuItem.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("Cotización");
+        aboutMenuItem.setText("Orden trabajo");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aboutMenuItemActionPerformed(evt);
@@ -164,8 +166,86 @@ public class mainView extends javax.swing.JFrame {
         });
         accionesMenu.add(aboutMenuItem);
 
+        jmnMarcaVehiculo.setText("Reprocesos");
+        jmnMarcaVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnMarcaVehiculoActionPerformed(evt);
+            }
+        });
+        accionesMenu.add(jmnMarcaVehiculo);
+
         menuBar.add(accionesMenu);
 
+        mnuItemProcesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/working-time.png"))); // NOI18N
+        mnuItemProcesos.setMnemonic('h');
+        mnuItemProcesos.setText("Procesos");
+
+        mnuPreciosServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/money.png"))); // NOI18N
+        mnuPreciosServicios.setText("Precios servicios");
+        mnuPreciosServicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPreciosServiciosActionPerformed(evt);
+            }
+        });
+        mnuItemProcesos.add(mnuPreciosServicios);
+
+        mnuItemCotizacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemCotizacion.setMnemonic('a');
+        mnuItemCotizacion.setText("Cotización");
+        mnuItemCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemCotizacionActionPerformed(evt);
+            }
+        });
+        mnuItemProcesos.add(mnuItemCotizacion);
+
+        mnuItemInventario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemInventario.setMnemonic('a');
+        mnuItemInventario.setText("Inventario");
+        mnuItemInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemInventarioActionPerformed(evt);
+            }
+        });
+        mnuItemProcesos.add(mnuItemInventario);
+
+        menuBar.add(mnuItemProcesos);
+
+        mnuItemReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/analytics.png"))); // NOI18N
+        mnuItemReportes.setMnemonic('h');
+        mnuItemReportes.setText("Reportes");
+
+        mnuPreciosServicios1.setText("Precios servicios");
+        mnuPreciosServicios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPreciosServicios1ActionPerformed(evt);
+            }
+        });
+        mnuItemReportes.add(mnuPreciosServicios1);
+
+        mnuItemCotizacion1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemCotizacion1.setMnemonic('a');
+        mnuItemCotizacion1.setText("Cotización");
+        mnuItemCotizacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemCotizacion1ActionPerformed(evt);
+            }
+        });
+        mnuItemReportes.add(mnuItemCotizacion1);
+
+        mnuItemInventario1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemInventario1.setMnemonic('a');
+        mnuItemInventario1.setText("Inventario");
+        mnuItemInventario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemInventario1ActionPerformed(evt);
+            }
+        });
+        mnuItemReportes.add(mnuItemInventario1);
+
+        menuBar.add(mnuItemReportes);
+
+        helpMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/help.png"))); // NOI18N
         helpMenu.setMnemonic('h');
         helpMenu.setText("Ayuda");
 
@@ -238,7 +318,7 @@ public class mainView extends javax.swing.JFrame {
 
     private void contentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentMenuItemActionPerformed
         // TODO add your handling code here:
-        frmVehiculo form = new frmVehiculo();
+        frmVehiculoTestMarca form = new frmVehiculoTestMarca();
         mainPane.add(form);
         form.toFront();
         form.setVisible(true);
@@ -251,14 +331,6 @@ public class mainView extends javax.swing.JFrame {
         form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
-
-    private void jmnPreciosServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPreciosServiciosActionPerformed
-        // TODO add your handling code here:
-        frmPrecioporServicio form = new frmPrecioporServicio();
-        mainPane.add(form);
-        form.toFront();
-        form.setVisible(true);
-    }//GEN-LAST:event_jmnPreciosServiciosActionPerformed
 
     private void jmnMarcaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnMarcaVehiculoActionPerformed
         // TODO add your handling code here:
@@ -279,6 +351,50 @@ public class mainView extends javax.swing.JFrame {
     private void aboutMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_aboutMenuItem2ActionPerformed
+
+    private void mnuPreciosServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPreciosServiciosActionPerformed
+        // TODO add your handling code here:
+        frmPrecioporServicio form = new frmPrecioporServicio();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_mnuPreciosServiciosActionPerformed
+
+    private void mnuItemCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemCotizacionActionPerformed
+        // TODO add your handling code here:
+        frmCotizar form = new frmCotizar();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_mnuItemCotizacionActionPerformed
+
+    private void mnuProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProveedoresActionPerformed
+        // TODO add your handling code here:
+        frmProveedores form = new frmProveedores();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_mnuProveedoresActionPerformed
+
+    private void mnuItemInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemInventarioActionPerformed
+        // TODO add your handling code here:
+        frmInventarioVehiculo form = new frmInventarioVehiculo();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_mnuItemInventarioActionPerformed
+
+    private void mnuPreciosServicios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPreciosServicios1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuPreciosServicios1ActionPerformed
+
+    private void mnuItemCotizacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemCotizacion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItemCotizacion1ActionPerformed
+
+    private void mnuItemInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemInventario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItemInventario1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,11 +441,18 @@ public class mainView extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem jmnMarcaVehiculo;
-    private javax.swing.JMenuItem jmnPreciosServicios;
     private javax.swing.JDesktopPane mainPane;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mnuEmpleado;
     private javax.swing.JMenuItem mnuItemContenido;
+    private javax.swing.JMenuItem mnuItemCotizacion;
+    private javax.swing.JMenuItem mnuItemCotizacion1;
+    private javax.swing.JMenuItem mnuItemInventario;
+    private javax.swing.JMenuItem mnuItemInventario1;
+    private javax.swing.JMenu mnuItemProcesos;
+    private javax.swing.JMenu mnuItemReportes;
+    private javax.swing.JMenuItem mnuPreciosServicios;
+    private javax.swing.JMenuItem mnuPreciosServicios1;
     private javax.swing.JMenuItem mnuPropietarios;
     private javax.swing.JMenuItem mnuProveedores;
     private javax.swing.JMenuItem openMenuItem;

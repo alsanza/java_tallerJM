@@ -1,15 +1,11 @@
 package model;
 
 import controller.ctrMarca;
-import java.util.ArrayList;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,35 +23,7 @@ public class mdlDatosMarca {
     private String sSQL = "";// variable que almacena la instrucción SQL
     public Integer totalregistros;
 
-    /*
-    * https://www.youtube.com/watch?v=yMWwOfrv2VE min 22:40
-    public java.util.List<ctrMarca> mostrarMarca() { */
-    // Suponiendo que los JComboBox están inicializados y tienen elementos
-    public Vector<ctrMarca> mostrarMarca() {
-        String sSQL = "SELECT IDmarca, descripcion FROM marca";
-
-        //java.util.List<ctrMarca> datos = new java.util.ArrayList<>(); // Especificar el paquete completo
-        Vector<ctrMarca> datos = new Vector<ctrMarca>();
-
-        try (Statement st = cn.createStatement(); ResultSet rs = st.executeQuery(sSQL)) {
-            ctrMarca mar = new ctrMarca();
-            mar.setIDmarca(0);
-            mar.setDescripcion("Selecciona una marca");
-            datos.add(mar);
-
-            while (rs.next()) {
-                mar = new ctrMarca();
-                mar.setIDmarca(rs.getInt("IDmarca"));
-                mar.setDescripcion(rs.getString("descripcion"));
-                datos.add(mar);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener las marcas: " + e.toString());
-        }
-
-        return datos;
-    }
-
+    
     /*
     * Función para rellenar los combos del formulario
     

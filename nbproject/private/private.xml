@@ -6,10 +6,10 @@
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/forms/frmPrecioporServicio.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/mdlDatosMarca.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/mdlPrecioPorPieza.java</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/controller/ctrPrecioPieza.java</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/views/mainView.java</file>
+            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/model/cargarCombo.java</file>
             <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/controller/ctrMarca.java</file>
-            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/forms/frmEmpleados.java</file>
+            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/controller/ctrLinea.java</file>
+            <file>file:/C:/Ejercicios%20java/TallerJM_barra/src/forms/frmVehiculoTestMarca.java</file>
         </group>
     </open-files>
 </project-private>

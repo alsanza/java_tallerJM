@@ -1,9 +1,5 @@
 package controller;
 
-/**
- *
- * @author alsan
- */
 public class ctrMarca {
     private int IDmarca;
     private String descripcion = "";
@@ -31,10 +27,10 @@ public class ctrMarca {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
     @Override
     public String toString() {
-        return this.descripcion;
+        return descripcion;
     }
-    
 }
+
