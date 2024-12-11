@@ -1,90 +1,67 @@
 package controller;
 
+import java.sql.Date;
+
 /**
  *
  * @author alsan
  */
 public class ctrCotizacion {
-    private int idValor;
-    private String marca = "";
-    private String linea = "";
-    private String modelo = "";
-    private String pieza = "";
-    private String servicio = "";
-    private double valor = 0;
+    private int IDcotizacion;
+    private int cotizacion_nro;
+    private Date fecha_cotizacion;
+    private int id_vehiculo;
+    private Date fecha_vencimiento;
 
     public ctrCotizacion() {
     }
 
-    public ctrCotizacion(int idValor, String marca, String linea, String modelo, String pieza, String servicio, double valor) {
-        this.idValor = idValor;
-        this.marca = marca;
-        this.linea = linea;
-        this.modelo = modelo;
-        this.pieza = pieza;
-        this.servicio = servicio;
-        this.valor = valor;
+    public ctrCotizacion(int IDcotizacion, int cotizacion_nro, Date fecha_cotizacion, int id_vehiculo, Date fecha_vencimiento) {
+        this.IDcotizacion = IDcotizacion;
+        this.cotizacion_nro = cotizacion_nro;
+        this.fecha_cotizacion = fecha_cotizacion;
+        this.id_vehiculo = id_vehiculo;
+        this.fecha_vencimiento = fecha_vencimiento;
     }
 
-    public int getIdValor() {
-        return idValor;
+    public int getIDcotizacion() {
+        return IDcotizacion;
     }
 
-    public void setIdValor(int idValor) {
-        this.idValor = idValor;
+    public void setIDcotizacion(int IDcotizacion) {
+        this.IDcotizacion = IDcotizacion;
     }
 
-    public String getMarca() {
-        return marca;
+    public int getCotizacion_nro() {
+        return cotizacion_nro;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setCotizacion_nro(int cotizacion_nro) {
+        this.cotizacion_nro = cotizacion_nro;
     }
 
-    public String getLinea() {
-        return linea;
+    public Date getFecha_cotizacion() {
+        return fecha_cotizacion;
     }
 
-    public void setLinea(String linea) {
-        this.linea = linea;
+    public void setFecha_cotizacion(Date fecha_cotizacion) {
+        this.fecha_cotizacion = fecha_cotizacion;
     }
 
-    public String getModelo() {
-        return modelo;
+    public int getId_vehiculo() {
+        return id_vehiculo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setId_vehiculo(int id_vehiculo) {
+        this.id_vehiculo = id_vehiculo;
     }
 
-    public String getPieza() {
-        return pieza;
+    public Date getFecha_vencimiento() {
+        return fecha_vencimiento;
     }
 
-    public void setPieza(String pieza) {
-        this.pieza = pieza;
-    }
-
-    public String getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }  
-    
-    @Override
-    public String toString() {
-        return this.marca;
+    public void setFecha_vencimiento(Date fecha_vencimiento) {
+        this.fecha_vencimiento = fecha_vencimiento;
     }
     
 }

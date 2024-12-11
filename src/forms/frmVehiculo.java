@@ -1,9 +1,14 @@
 package forms;
 
 //import controller.ctrPropietario;
+import controller.ctrMarca;
 import controller.ctrVehiculo;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.cargarCombo;
 //import model.mdlPropietario;
 import model.mdlVehiculo;
 
@@ -112,6 +117,18 @@ public class frmVehiculo extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(rootPane, e);
         }
+    }
+    
+    
+    public static void cargarCombo(cargarCombo mar, JComboBox<ctrMarca> combo) {
+// Obtener la lista de ctrMarca 
+        List<ctrMarca> marcas = mar.mostrarMarca();
+// Crear el DefaultComboBoxModel y añadir los elementos 
+        DefaultComboBoxModel<ctrMarca> modelo = new DefaultComboBoxModel<>();
+        for (ctrMarca marca : marcas) {
+            modelo.addElement(marca);
+        } // Asignar el modelo al JComboBox existente 
+        combo.setModel(modelo);
     }
 
     /**

@@ -8,15 +8,15 @@ public class ctrLinea {
 
     private int IDlinea_vehiculo;
     private int IDmarca;
-    private String descripcion;
+    private String desc_linea;
 
     public ctrLinea() {
     }
 
-    public ctrLinea(int IDlinea_vehiculo, int IDmarca, String descripcion) {
+    public ctrLinea(int IDlinea_vehiculo, int IDmarca, String desc_linea) {
         this.IDlinea_vehiculo = IDlinea_vehiculo;
         this.IDmarca = IDmarca;
-        this.descripcion = descripcion;
+        this.desc_linea = desc_linea;
     }
 
     public int getIDlinea_vehiculo() {
@@ -36,16 +36,16 @@ public class ctrLinea {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return desc_linea;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcion(String desc_linea) {
+        this.desc_linea = desc_linea;
     }
     
     @Override
     public String toString() {
-        return this.descripcion;
+        return this.desc_linea;
     }
     
 }

@@ -1,18 +1,20 @@
 package model;
 
-import controller.ctrPropietario;
+import controller.ctrCotizacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @author alsan
- * instanciamos en variables privadas los métodos de conexion y las sentencias SQL, y en variables públicas los complementos
+ * @author alsan instanciamos en variables privadas los métodos de conexion y
+ * las sentencias SQL, y en variables públicas los complementos
  */
 public class mdlCotizacion {
+
     // Instanciamos la clase Conexion
     private Conexion mysql = new Conexion();
     // Accedemos al métod Connection
@@ -21,192 +23,191 @@ public class mdlCotizacion {
     private String sSQL = "";// variable que almacena la instrucción SQL
     private String sSQLp = "";//segunda instrucción para la tabla persona
     public Integer totalregistros = 0;
-    
+
     /* CRUD */
-    
-    /* el metodo MOSTRAR devuelve un DefaultTableModel y recibe un parámetro de tipo String que se llama buscar para 
+ /* el metodo MOSTRAR devuelve un DefaultTableModel y recibe un parámetro de tipo String que se llama buscar para 
     * buscar un registro en la base de datos
-    */
-    public DefaultTableModel mostrar(String buscar){
-        
+     */
+    public DefaultTableModel mostrar(String buscar) {
+
         DefaultTableModel modelo;
-        
+
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID","Tipo documento", "Número documento","Nombres","Apellidos","Email","Teléfono","Dirección"};
-        
+        String[] titulos = {"ID", "Cotizacón Nro.", "Fecha", "Placa", "Marca", "Linea", "Módelo", "Color","Fecha vencimiento"};
+
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[8];
-        
-        totalregistros=0;
-        
+        String[] registro = new String[9];
+
+        totalregistros = 0;
+
         modelo = new DefaultTableModel(null, titulos);
-        
+
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL="SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,p.estado," +
-                "p.fecha_registro FROM persona p INNER JOIN propietario t ON p.IDpersona=t.IDpropietario " +
-                "WHERE numero_documento LIKE '%"+ buscar +"%' ORDER BY IDpersona DESC";
-        
+        sSQL = "SELECT c.IDcotizacion,c.cotizacion_nro,c.fecha_cotizacion,v.placa,m.descripcion,l.desc_linea,v.modelo,v.color,"
+                + "c.fecha_vencimiento FROM cotizacion c INNER JOIN vehiculo v ON c.id_vehiculo=v.IDvehiculo INNER JOIN marca m"
+                + " ON v.fk_marca = m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea = l.IDlinea_vehiculo WHERE"
+                + " cotizacion_nro LIKE '%" + buscar + "%' ORDER BY cotizacion_nro ASC";
+
         /* Capturador de errores */
         try {
-            Statement st= cn.createStatement();
-            ResultSet rs=st.executeQuery(sSQL);
-            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
             /* recorrer los registros de la tabla */
-            while(rs.next()){
-                registro [0]=rs.getString("IDpersona");
-                registro [1]=rs.getString("tipo_documento");
-                registro [2]=rs.getString("numero_documento");
-                registro [3]=rs.getString("nombres");
-                registro [4]=rs.getString("apellidos");
-                registro [5]=rs.getString("email");
-                registro [6]=rs.getString("contacto");
-                registro [7]=rs.getString("direccion");         
-               
-                totalregistros=totalregistros+1;
+            while (rs.next()) {
+                registro[0] = rs.getString("IDcotizacion");
+                registro[1] = rs.getString("cotizacion_nro");
+                registro[2] = rs.getString("fecha_cotizacion");
+                registro[3] = rs.getString("placa");
+                registro[4] = rs.getString("descripcion");
+                registro[5] = rs.getString("desc_linea");
+                registro[6] = rs.getString("modelo");
+                registro[7] = rs.getString("color");
+                registro[8] = rs.getString("fecha_vencimiento");
+
+                totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
-                
+
             }
-            
+
             return modelo;
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);  
+            JOptionPane.showConfirmDialog(null, e);
             return null;
         }
     }
-    
+
     /*
     *CREAR, función booleana porque devuelve verdadero o falso que recibe la clase del controlador ctrPropietario
     *lleva dos sentencias SQL, para la tabla persona y otra para la tabla propietario
-    */
-    public boolean insertar(ctrPropietario dts){
+     */
+    public boolean insertar(ctrCotizacion dts) {
         /* instrucción SQL insertar para la tabla persona */
-        sSQL="INSERT INTO persona (tipo_documento,numero_documento,nombres,apellidos,email,contacto,direccion,estado)" +
-             "VALUES (?,?,?,?,?,?,?,1)";
-        /* instrucción SQL insertar para la tabla empleado */
-        sSQLp="INSERT INTO propietario (IDpropietario) VALUES ((SELECT IDpersona FROM persona ORDER BY IDpersona DESC LIMIT 1))";
+        sSQL = "INSERT INTO cotizacion (cotizacion_nro,fecha_cotizacion,id_vehiculo,fecha_vencimiento)"
+                + "VALUES (?,?,?,?)";
         try {
             //REGISTROS SE OBTIENEN DE LA CLASE CTREMPLEADO DEL METODO GET
-            PreparedStatement pst=cn.prepareStatement(sSQL);
-            PreparedStatement pstp=cn.prepareStatement(sSQLp);
-            
-            pst.setString(1, dts.getTipo_documento());
-            pst.setString(2, dts.getNumero_documento());
-            pst.setString(3, dts.getNombres());
-            pst.setString(4, dts.getApellidos());
-            pst.setString(5, dts.getEmail());
-            pst.setString(6, dts.getContacto());
-            pst.setString(7, dts.getDireccion());
-            
-            int n=pst.executeUpdate();
-            
-            if(n!=0){
-                int nc=pstp.executeUpdate();
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, dts.getCotizacion_nro());
+            pst.setDate(2, dts.getFecha_cotizacion());
+            pst.setInt(3, dts.getId_vehiculo());
+            pst.setDate(4, dts.getFecha_vencimiento());
+
+            int n = pst.executeUpdate();
+
+            if (n != 0) {
                 
-                if (nc!=0) {
-                    
-                    return true;
-                    
-                }else{
-                    return false;
-                }
-            }else{
+                 return true;
+                 
+            } else {
+                
                 return false;
+                
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
         }
     }
-    
+
     /*
     * MODIFICAR, función booleana porque devuelve verdadero o falso que recibe la clase del controlador ctrPropietario
     * lleva dos sentencias SQL, para la tabla persona y otra para la tabla propietario
-    */
-    public boolean editar(ctrPropietario dts){
-        
+     */
+    public boolean editar(ctrCotizacion dts) {
+
         /* instrucción SQL */
-        sSQL="UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,estado=? WHERE IDpersona=?";
-        sSQLp="UPDATE propietario SET  WHERE IDpropietario=?";
-        
+        sSQL = "UPDATE cotizacion SET cotizacion_nro = ?,fecha_cotizacion = ?,id_vehiculo = ?,fecha_vencimiento = ? WHERE IDcotizacion=?";
+
         /* Creamos el manejador de errores */
         try {
-            
-            PreparedStatement pst=cn.prepareStatement(sSQL);
-            PreparedStatement pstp=cn.prepareStatement(sSQLp);
-            
-            pst.setString(1, dts.getTipo_documento());
-            pst.setString(2, dts.getNumero_documento());
-            pst.setString(3, dts.getNombres());
-            pst.setString(4, dts.getApellidos());
-            pst.setString(5, dts.getEmail());
-            pst.setString(6, dts.getContacto());
-            pst.setString(7, dts.getDireccion());
-            pst.setInt(8, dts.getEstado());
-            pst.setInt(9, dts.getIDpersona());
-            
-            pstp.setInt(1, dts.getIDpropietario());
-            
-            int n=pst.executeUpdate();
-            
-            if(n!=0){
-                int nc=pstp.executeUpdate();
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, dts.getCotizacion_nro());
+            pst.setDate(2, dts.getFecha_cotizacion());
+            pst.setInt(3, dts.getId_vehiculo());
+            pst.setDate(4, dts.getFecha_vencimiento());
+
+            int n = pst.executeUpdate();
+
+            if (n != 0) {
                 
-                if (nc!=0) {
-                    
-                    return true;
-                    
-                }else{
-                    return false;
-                }
-            }else{
+                return true;
+                
+            } else {
+                
                 return false;
+                
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
         }
     }
-    
+
     /*
     * ELIMINAR, función booleana porque devuelve verdadero o falso que recibe como parámetro la clase del controlador 
     * ctrPropietario lleva dos sentencias SQL, para la tabla persona y otra para la tabla propietario
-    */
-    public boolean eliminar(ctrPropietario dts){
+     */
+    public boolean eliminar(ctrCotizacion dts) {
         /* instrucción SQL */
-        sSQL="DELETE FROM propietario WHERE IDpropietario=?";
-        
-        sSQLp="DELETE FROM persona WHERE IDpersona=?";
-        
+        sSQL = "DELETE FROM cotizacion WHERE IDcotizacion=?";
+
         try {
-            
-            PreparedStatement pst=cn.prepareStatement(sSQL);
-            PreparedStatement pstp=cn.prepareStatement(sSQLp);
-            
-            pst.setInt(1, dts.getIDpropietario());
-            pstp.setInt(1, dts.getIDpersona());
-            
-            int n=pst.executeUpdate();
-            
-            if(n!=0){
-                int nc=pst.executeUpdate();
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, dts.getIDcotizacion());
+
+            int n = pst.executeUpdate();
+
+            if (n != 0) {
                 
-                if (nc!=0) {
-                    
-                    return true;
-                    
-                }else{
-                    return false;
-                }
-            }else{
+               return true;
+               
+            } else {
+                
                 return false;
+                
             }
-            
+
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e); 
+            JOptionPane.showConfirmDialog(null, e);
             return false;
         }
     }
-    
+
+    /*
+    * Función para obtener el último ID guardado en la db
+    */
+    public int obtenerUltimoID() {
+        
+        int ultimoID = 0;
+        
+        sSQL = "SELECT MAX(IDcotizacion) FROM cotizacion WHERE IDcotizacion ORDER BY IDcotizacion desc";
+        try (
+                
+                PreparedStatement pst = cn.prepareStatement(sSQL);
+                ResultSet rs = pst.executeQuery(sSQL)) {
+            
+            if (rs.next()) {
+                
+                ultimoID = rs.getInt(1);
+                
+            }
+            
+        } catch (SQLException e) {
+            
+            System.out.println(e.getMessage());
+            
+        }
+        
+        return ultimoID;
+        
+    }
+
 }

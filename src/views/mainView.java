@@ -10,6 +10,7 @@ import forms.frmCotizar;
 import forms.frmEmpleados;
 import forms.frmInventarioVehiculo;
 import forms.frmMarca;
+import forms.frmOrdenTrabajo;
 import forms.frmPrecioporServicio;
 import forms.frmPropietario;
 import forms.frmProveedores;
@@ -147,6 +148,7 @@ public class mainView extends javax.swing.JFrame {
         accionesMenu.setText("Vehículos");
 
         contentMenuItem.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        contentMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/car_item.png"))); // NOI18N
         contentMenuItem.setMnemonic('c');
         contentMenuItem.setText("Vehículo");
         contentMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +159,7 @@ public class mainView extends javax.swing.JFrame {
         accionesMenu.add(contentMenuItem);
 
         aboutMenuItem.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/checklist.png"))); // NOI18N
         aboutMenuItem.setMnemonic('a');
         aboutMenuItem.setText("Orden trabajo");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +193,7 @@ public class mainView extends javax.swing.JFrame {
         mnuItemProcesos.add(mnuPreciosServicios);
 
         mnuItemCotizacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/business-data.png"))); // NOI18N
         mnuItemCotizacion.setMnemonic('a');
         mnuItemCotizacion.setText("Cotización");
         mnuItemCotizacion.addActionListener(new java.awt.event.ActionListener() {
@@ -326,7 +330,7 @@ public class mainView extends javax.swing.JFrame {
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         // TODO add your handling code here:
-        frmCotizar form = new frmCotizar();
+        frmOrdenTrabajo form = new frmOrdenTrabajo();
         mainPane.add(form);
         form.toFront();
         form.setVisible(true);

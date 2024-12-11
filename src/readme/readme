@@ -17,3 +17,8 @@ se crea el vehículo, luego se van agregando las piezas, hay que crear primero e
 
 crear un método global que cargue todos los combos del sistema para mostrar la marca y la línea de los vehículo, y sobrecargar 
 en el constructor con los datos que va a mostrar 
+
+Cargar los comboBox de la aplicación con los datos que se encuentran guardados en la base de datos
+error de ejecucion "incompatible types: JComboBox<String> cannot be converted to JComboBox<ctrMarca>"
+Solución, damos click sobre el comboBox y nos vamos a propiedades, nos vamos a la pestaña codigo y cambiamos el tipo de <String>
+a <ctrMarca>

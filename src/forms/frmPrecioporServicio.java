@@ -28,9 +28,9 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
     }
 
     public static void cargarCombo(cargarCombo mar, JComboBox<ctrMarca> combo) {
-// Obtener la lista de ctrMarca 
+        // Obtener la lista de ctrMarca 
         List<ctrMarca> marcas = mar.mostrarMarca();
-// Crear el DefaultComboBoxModel y añadir los elementos 
+        // Crear el DefaultComboBoxModel y añadir los elementos 
         DefaultComboBoxModel<ctrMarca> modelo = new DefaultComboBoxModel<>();
         for (ctrMarca marca : marcas) {
             modelo.addElement(marca);
@@ -165,6 +165,11 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
         cboLinea.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboLineaItemStateChanged(evt);
+            }
+        });
+        cboLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLineaActionPerformed(evt);
             }
         });
 
@@ -475,16 +480,16 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
 
         int seleccion = cboLinea.getSelectedIndex();
         dts.setLinea(cboLinea.getItemAt(seleccion).toString());
-        
+
         int seleccionModelo = cboModelo.getSelectedIndex();
         dts.setModelo(cboModelo.getItemAt(seleccionModelo));
-        
+
         int seleccionPieza = cboPieza.getSelectedIndex();
         dts.setPieza(cboPieza.getItemAt(seleccionPieza));
-        
+
         int seleccionProceso = cboProceso.getSelectedIndex();
         dts.setServicio(cboProceso.getItemAt(seleccionProceso));
-        
+
         dts.setValor(Double.parseDouble(txtPrecio.getText()));
 
         /* PREGUNTAMOS QUE ACCION VAMOS A EJECUTAR */
@@ -530,6 +535,10 @@ public class frmPrecioporServicio extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cboLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboLineaActionPerformed
 
     /**
      * @param args the command line arguments

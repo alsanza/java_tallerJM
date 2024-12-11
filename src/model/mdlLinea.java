@@ -39,7 +39,7 @@ public class mdlLinea {
             while (rs.next()) {
                 mar = new ctrLinea();
                 mar.setIDmarca(rs.getInt("IDlinea_vehiculo"));
-                mar.setDescripcion(rs.getString("descripcion"));
+                mar.setDescripcion(rs.getString("desc_linea"));
 
                 datos.add(mar);
             }
