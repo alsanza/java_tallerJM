@@ -9,6 +9,13 @@ SELECT per.nombres,per.apellidos,v.placa,m.descripcion,l.descripcion,v.modelo,v.
 " ON v.idpropietario=p.IDpropietario INNER JOIN persona per ON p.IDpropietario = per.IDpersona INNER JOIN marca m ON" + 
 " v.fk_marca=m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea=l.IDlinea_vehiculo WHERE IDvehiculo=1";
 
+VEHICULOS
+Esta funcionalidad permite crear un vehículo y su propietario en el sistema, al ejecutar afecta la tabla persona, propietario y 
+vehiculo.
+
+Error de ejecución los atributos marca y linea esperan un IDmarca y IDlinea y el formulario esta enviando Strigs porque para llenar
+los datos del combobox en el formulario de precio pieza
+
 COTIZACION
 Para este módulo en el campo Nro cotizacion, quiero:
 1.  que me traiga el último ID de la cotización anterior y que le incremente un dígito y lo muestre en el campo cotización nro.

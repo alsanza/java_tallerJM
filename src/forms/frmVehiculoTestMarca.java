@@ -3,8 +3,6 @@ package forms;
 import controller.ctrLinea;
 import controller.ctrMarca;
 import controller.ctrVehiculo;
-import static forms.frmPrecioporServicio.cboLinea;
-import static forms.frmPrecioporServicio.cboMarca;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -35,6 +33,10 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         tblListados.getColumnModel().getColumn(0).setMaxWidth(0);
         tblListados.getColumnModel().getColumn(0).setMinWidth(0);
         tblListados.getColumnModel().getColumn(0).setPreferredWidth(0);
+        
+        tblListados.getColumnModel().getColumn(6).setMaxWidth(0);
+        tblListados.getColumnModel().getColumn(6).setMinWidth(0);
+        tblListados.getColumnModel().getColumn(6).setPreferredWidth(0);
     }
 
     /* METODO PARA MOSTRAR E INHABILITAR CAJAS DE TEXTO */
@@ -53,8 +55,8 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         txtPlaca.setEnabled(false);
         cboMarcaVehiculo.setEnabled(false);
         cboLinea.setEnabled(false);
-        txtModelo.setEnabled(false);
-        txtColor.setEnabled(false);
+        cboModelo.setEnabled(false);
+        cboColor.setEnabled(false);
 
         btnGuardar.setEnabled(false);
         btnCancelar.setEnabled(false);
@@ -68,9 +70,9 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         txtEmail.setText("");
 
         txtPlaca.setText("");
-        //cboLinea.setText("");
-        txtModelo.setText("");
-        txtColor.setText("");
+        cboLinea.setSelectedItem("");
+        cboModelo.setSelectedItem("");
+        cboColor.setSelectedItem("");
     }
 
     /* METODO PARA MOSTRAR E INHABILITAR CAJAS DE TEXTO */
@@ -88,8 +90,8 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         txtPlaca.setEnabled(true);
         cboMarcaVehiculo.setEnabled(true);
         cboLinea.setEnabled(true);
-        txtModelo.setEnabled(true);
-        txtColor.setEnabled(true);
+        cboModelo.setEnabled(true);
+        cboColor.setEnabled(true);
 
         btnGuardar.setEnabled(true);
         btnCancelar.setEnabled(true);
@@ -104,24 +106,24 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         txtEmail.setText("");
 
         txtPlaca.setText("");
-        //cboLinea.setText("");
-        txtModelo.setText("");
-        txtColor.setText("");
+        cboLinea.setSelectedItem("");
+        cboModelo.setSelectedItem("");
+        cboColor.setSelectedItem("");
 
     }
 
     public static void cargarCombo(cargarCombo mar, JComboBox<ctrMarca> combo) {
-        
+
         // Obtener la lista de ctrMarca 
         List<ctrMarca> marcas = mar.mostrarMarca();
-        
+
         // Crear el DefaultComboBoxModel y añadir los elementos 
         DefaultComboBoxModel<ctrMarca> modelo = new DefaultComboBoxModel<>();
-        
+
         for (ctrMarca marca : marcas) {
             modelo.addElement(marca);
         }
-        
+
         // Asignar el modelo al JComboBox existente 
         combo.setModel(modelo);
     }
@@ -185,11 +187,11 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cboMarcaVehiculo = new javax.swing.JComboBox<>();
-        txtModelo = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtColor = new javax.swing.JTextField();
         txtIdvehiculo = new javax.swing.JTextField();
         cboLinea = new javax.swing.JComboBox<>();
+        cboModelo = new javax.swing.JComboBox<>();
+        cboColor = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(204, 153, 255));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -437,6 +439,10 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Color:");
 
+        cboModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+
+        cboColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "AMARILLO", "AZÚL", "BEIGE", "BLANCO", "GRIS", "NEGRO", "PLATA", "ROJO", "VIOLETA" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -459,8 +465,8 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
                         .addComponent(cboMarcaVehiculo, 0, 195, Short.MAX_VALUE)
                         .addComponent(cboLinea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                        .addComponent(txtColor, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(cboColor, javax.swing.GroupLayout.Alignment.LEADING, 0, 132, Short.MAX_VALUE)
+                        .addComponent(cboModelo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -482,12 +488,12 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -511,7 +517,7 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -537,6 +543,9 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         txtEmail.setText(tblListados.getValueAt(fila, 5).toString());
         txtContacto.setText(tblListados.getValueAt(fila, 6).toString());
         txtDireccion.setText(tblListados.getValueAt(fila, 7).toString());
+        txtPlaca.setText(tblListados.getValueAt(fila, 8).toString());
+        cboMarcaVehiculo.setSelectedItem(tblListados.getValueAt(fila, 9).toString());
+        cboLinea.setSelectedItem(tblListados.getValueAt(fila, 10).toString());
 
     }//GEN-LAST:event_tblListadosMouseClicked
 
@@ -599,14 +608,16 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         dts.setContacto(txtContacto.getText());
         dts.setDireccion(txtDireccion.getText());
 
-        dts.setPlaca(txtPlaca.getText());
-        
+        dts.setPlaca(txtPlaca.getText().toUpperCase());
+
         seleccionado = cboMarcaVehiculo.getSelectedIndex();
         dts.setMarca(cboMarcaVehiculo.getItemAt(seleccionado).toString());
-        
+
         seleccionado = cboLinea.getSelectedIndex();
-        dts.setModelo(txtModelo.getText());
-        dts.setColor(txtColor.getText());
+        dts.setLinea(cboLinea.getItemAt(seleccionado).toString());
+
+        dts.setModelo(cboModelo.getItemAt(seleccionado));
+        dts.setColor(cboColor.getItemAt(seleccionado));
 
         /* PREGUNTAMOS QUE ACCION VAMOS A EJECUTAR */
         if (accion.equals("guardar")) {
@@ -729,8 +740,10 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cboColor;
     private javax.swing.JComboBox<ctrLinea> cboLinea;
     private javax.swing.JComboBox<ctrMarca> cboMarcaVehiculo;
+    private javax.swing.JComboBox<String> cboModelo;
     private javax.swing.JComboBox<String> cboTipodocumento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -753,13 +766,11 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblListados;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtContacto;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIdpropietario;
     private javax.swing.JTextField txtIdvehiculo;
-    private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNumdocumento;
     private javax.swing.JTextField txtPlaca;

@@ -43,9 +43,8 @@ public class mdlCotizacion {
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT c.IDcotizacion,c.cotizacion_nro,c.fecha_cotizacion,v.placa,m.descripcion,l.desc_linea,v.modelo,v.color,"
-                + "c.fecha_vencimiento FROM cotizacion c INNER JOIN vehiculo v ON c.id_vehiculo=v.IDvehiculo INNER JOIN marca m"
-                + " ON v.fk_marca = m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea = l.IDlinea_vehiculo WHERE"
+        sSQL = "SELECT c.IDcotizacion,c.cotizacion_nro,c.fecha_cotizacion,v.placa,v.marca,v.linea,v.modelo,v.color,"
+                + "c.fecha_vencimiento FROM cotizacion c INNER JOIN vehiculo v ON c.id_vehiculo=v.IDvehiculo WHERE"
                 + " cotizacion_nro LIKE '%" + buscar + "%' ORDER BY cotizacion_nro ASC";
 
         /* Capturador de errores */
@@ -59,8 +58,8 @@ public class mdlCotizacion {
                 registro[1] = rs.getString("cotizacion_nro");
                 registro[2] = rs.getString("fecha_cotizacion");
                 registro[3] = rs.getString("placa");
-                registro[4] = rs.getString("descripcion");
-                registro[5] = rs.getString("desc_linea");
+                registro[4] = rs.getString("marca");
+                registro[5] = rs.getString("linea");
                 registro[6] = rs.getString("modelo");
                 registro[7] = rs.getString("color");
                 registro[8] = rs.getString("fecha_vencimiento");

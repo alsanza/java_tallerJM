@@ -52,7 +52,7 @@
                   <Component id="jPanel3" max="32767" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -475,8 +475,8 @@
                           <Component id="cboLinea" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="txtModelo" alignment="0" pref="107" max="32767" attributes="0"/>
-                          <Component id="txtColor" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cboColor" alignment="0" pref="132" max="32767" attributes="0"/>
+                          <Component id="cboModelo" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="120" max="32767" attributes="0"/>
@@ -505,14 +505,14 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtColor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboColor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -553,14 +553,10 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ctrMarca&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtModelo">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="text" type="java.lang.String" value="Color:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtColor">
         </Component>
         <Component class="javax.swing.JTextField" name="txtIdvehiculo">
         </Component>
@@ -572,6 +568,80 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ctrLinea&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cboModelo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="42">
+                <StringItem index="0" value="Seleccione"/>
+                <StringItem index="1" value="1990"/>
+                <StringItem index="2" value="1991"/>
+                <StringItem index="3" value="1992"/>
+                <StringItem index="4" value="1993"/>
+                <StringItem index="5" value="1994"/>
+                <StringItem index="6" value="1995"/>
+                <StringItem index="7" value="1996"/>
+                <StringItem index="8" value="1997"/>
+                <StringItem index="9" value="1998"/>
+                <StringItem index="10" value="1999"/>
+                <StringItem index="11" value="2000"/>
+                <StringItem index="12" value="2001"/>
+                <StringItem index="13" value="2002"/>
+                <StringItem index="14" value="2003"/>
+                <StringItem index="15" value="2004"/>
+                <StringItem index="16" value="2005"/>
+                <StringItem index="17" value="2006"/>
+                <StringItem index="18" value="2007"/>
+                <StringItem index="19" value="2008"/>
+                <StringItem index="20" value="2009"/>
+                <StringItem index="21" value="2010"/>
+                <StringItem index="22" value="2011"/>
+                <StringItem index="23" value="2012"/>
+                <StringItem index="24" value="2013"/>
+                <StringItem index="25" value="2014"/>
+                <StringItem index="26" value="2015"/>
+                <StringItem index="27" value="2016"/>
+                <StringItem index="28" value="2017"/>
+                <StringItem index="29" value="2018"/>
+                <StringItem index="30" value="2019"/>
+                <StringItem index="31" value="2020"/>
+                <StringItem index="32" value="2021"/>
+                <StringItem index="33" value="2022"/>
+                <StringItem index="34" value="2023"/>
+                <StringItem index="35" value="2024"/>
+                <StringItem index="36" value="2025"/>
+                <StringItem index="37" value="2026"/>
+                <StringItem index="38" value="2027"/>
+                <StringItem index="39" value="2028"/>
+                <StringItem index="40" value="2029"/>
+                <StringItem index="41" value="2030"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cboColor">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="10">
+                <StringItem index="0" value="Seleccione"/>
+                <StringItem index="1" value="AMARILLO"/>
+                <StringItem index="2" value="AZ&#xda;L"/>
+                <StringItem index="3" value="BEIGE"/>
+                <StringItem index="4" value="BLANCO"/>
+                <StringItem index="5" value="GRIS"/>
+                <StringItem index="6" value="NEGRO"/>
+                <StringItem index="7" value="PLATA"/>
+                <StringItem index="8" value="ROJO"/>
+                <StringItem index="9" value="VIOLETA"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>

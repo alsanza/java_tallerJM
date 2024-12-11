@@ -33,19 +33,18 @@ public class mdlVehiculo {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID", "Nombres", "Apellidos", "Placa", "Marca", "Linea","Módelo","Color"};
+        String[] titulos = {"ID","Tipo documento","Documento", "Nombres", "Apellidos", "email","IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[8];
+        String[] registro = new String[12];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT v.IDvehiculo,p.IDpropietario,e.nombres,e.apellidos,v.placa,m.descripcion,l.desc_linea,v.modelo,v.color FROM vehiculo v"
+        sSQL = "SELECT v.IDvehiculo,p.IDpropietario,e.tipo_documento,e.numero_documento,e.nombres,e.apellidos,e.email,v.placa,v.marca,v.linea,v.modelo,v.color FROM vehiculo v"
                 + " INNER JOIN propietario p ON v.idpropietario=p.IDpropietario INNER JOIN persona e ON p.IDpropietario=e.IDpersona"
-                +" INNER JOIN marca m ON v.fk_marca=m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea=l.IDlinea_vehiculo"
                 + " WHERE placa LIKE '%" + buscar + "%' ORDER BY IDvehiculo DESC";
 
         /* Capturador de errores */
@@ -55,14 +54,18 @@ public class mdlVehiculo {
 
             /* recorrer los registros de la tabla */
             while (rs.next()) {
-                registro[0] = rs.getString("IDvehiculo");
-                registro[1] = rs.getString("nombres");
-                registro[2] = rs.getString("apellidos");
-                registro[3] = rs.getString("placa");
-                registro[4] = rs.getString("descripcion");
-                registro[5] = rs.getString("desc_linea");
-                registro[6] = rs.getString("modelo");
-                registro[7] = rs.getString("color");
+                registro[0] = rs.getString("IDpropietario");
+                registro[1] = rs.getString("tipo_documento");
+                registro[2] = rs.getString("numero_documento");
+                registro[3] = rs.getString("nombres");
+                registro[4] = rs.getString("apellidos");
+                registro[5] = rs.getString("email");
+                registro[6] = rs.getString("IDvehiculo");
+                registro[7] = rs.getString("placa");
+                registro[8] = rs.getString("marca");
+                registro[9] = rs.getString("linea");
+                registro[10] = rs.getString("modelo");
+                registro[11] = rs.getString("color");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -88,7 +91,7 @@ public class mdlVehiculo {
         /* instrucción SQL insertar para la tabla empleado */
         sSQLp = "INSERT INTO propietario (IDpropietario) VALUES ((SELECT IDpersona FROM persona ORDER BY IDpersona DESC LIMIT 1))";
 
-        sSQLv = "INSERT INTO vehiculo (idpropietario,placa,fk_marca,fk_linea,modelo,color) VALUES ((SELECT IDpropietario FROM propietario ORDER BY IDpropietario DESC LIMIT 1),?,?,?,?,?)";
+        sSQLv = "INSERT INTO vehiculo (idpropietario,placa,marca,linea,modelo,color) VALUES ((SELECT IDpropietario FROM propietario ORDER BY IDpropietario DESC LIMIT 1),?,?,?,?,?)";
         try {
             //REGISTROS SE OBTIENEN DE LA CLASE CTREMPLEADO DEL METODO GET
             PreparedStatement pst = cn.prepareStatement(sSQL);
