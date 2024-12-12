@@ -16,6 +16,8 @@ import forms.frmPropietario;
 import forms.frmProveedores;
 import forms.frmVehiculo;
 import forms.frmVehiculoTestMarca;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 
 /**
@@ -31,6 +33,12 @@ public class mainView extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(mainView.MAXIMIZED_BOTH);
         this.setTitle("Sistema gestión taller JM");
+    }
+    
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/car.png"));
+        return retValue;
     }
 
     /**
@@ -70,6 +78,7 @@ public class mainView extends javax.swing.JFrame {
         aboutMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         mainPane.setBackground(new java.awt.Color(102, 255, 102));
 

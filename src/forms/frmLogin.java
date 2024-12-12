@@ -56,6 +56,12 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña:");
 
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
+
         btnCancelar.setBackground(new java.awt.Color(255, 51, 0));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,6 +85,12 @@ public class frmLogin extends javax.swing.JFrame {
         });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login-svgrepo-com.png"))); // NOI18N
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         tblListados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,36 +172,27 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        try {
-
-            DefaultTableModel modelo;
-
-            ctrEmpleado dts = new ctrEmpleado();
-            mdlEmpleado func = new mdlEmpleado();
-
-            dts.setUsuario(txtUsuario.getText());
-            dts.setPassword(txtPassword.getText());
-
-            modelo = func.login(dts.getUsuario(), dts.getPassword());
-
-            tblListados.setModel(modelo);
-
-            if (func.totalregistros > 0) {
-                this.dispose();
-                mainView form = new mainView();
-                form.toFront();
-                form.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
+        this.login();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            txtPassword.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            this.login();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -238,4 +241,33 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    
+    private void login() {
+        try {
+
+            DefaultTableModel modelo;
+
+            ctrEmpleado dts = new ctrEmpleado();
+            mdlEmpleado func = new mdlEmpleado();
+
+            dts.setUsuario(txtUsuario.getText().trim());
+            dts.setPassword(txtPassword.getText().trim());
+
+            modelo = func.login(dts.getUsuario(), dts.getPassword());
+
+            tblListados.setModel(modelo);
+
+            if (func.totalregistros > 0) {
+                this.dispose();
+                mainView form = new mainView();
+                form.toFront();
+                form.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 }

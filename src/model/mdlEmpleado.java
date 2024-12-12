@@ -27,19 +27,20 @@ public class mdlEmpleado {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID", "Tipo documento", "Número documento", "Nombres", "Apellidos", "Email", "Teléfono", "Dirección", "Cargo", "Sueldo", "Usuario", "Estado", "Fecha Registro"};
+        String[] titulos = {"ID", "Tipo documento", "Número documento", "Nombres", "Apellidos", "Email", "Teléfono","Dirección",
+                            "Estado","IDempleado","Cargo", "Sueldo", "Usuario","password","Fecha Registro"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[13];
+        String[] registro = new String[15];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,p.estado,p.fecha_registro,"
-                + "t.cargo,t.salario,t.usuario FROM persona p INNER JOIN empleado t ON p.IDpersona=t.IDempleado "
-                + "WHERE numero_documento LIKE '%" + buscar + "%' ORDER BY IDpersona DESC";
+        sSQL = "SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,"
+                + "p.estado,p.fecha_registro,t.IDempleado,t.cargo,t.salario,t.usuario,t.password FROM empleado t INNER JOIN persona p ON t.IDempleado=p.IDpersona "
+                + "WHERE numero_documento LIKE '%" + buscar + "%' ORDER BY IDempleado ASC";
 
         /* Capturador de errores */
         try {
@@ -56,11 +57,13 @@ public class mdlEmpleado {
                 registro[5] = rs.getString("email");
                 registro[6] = rs.getString("contacto");
                 registro[7] = rs.getString("direccion");
-                registro[8] = rs.getString("cargo");
-                registro[9] = rs.getString("salario");
-                registro[10] = rs.getString("usuario");
-                registro[11] = rs.getString("estado");
-                registro[12] = rs.getString("fecha_registro");
+                registro[8] = rs.getString("estado");
+                registro[9] = rs.getString("IDempleado");
+                registro[10] = rs.getString("cargo");
+                registro[11] = rs.getString("salario");
+                registro[12] = rs.getString("usuario");
+                registro[13] = rs.getString("password");
+                registro[14] = rs.getString("fecha_registro");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);

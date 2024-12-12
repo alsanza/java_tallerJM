@@ -33,10 +33,10 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         tblListados.getColumnModel().getColumn(0).setMaxWidth(0);
         tblListados.getColumnModel().getColumn(0).setMinWidth(0);
         tblListados.getColumnModel().getColumn(0).setPreferredWidth(0);
-        
-        tblListados.getColumnModel().getColumn(6).setMaxWidth(0);
-        tblListados.getColumnModel().getColumn(6).setMinWidth(0);
-        tblListados.getColumnModel().getColumn(6).setPreferredWidth(0);
+
+        tblListados.getColumnModel().getColumn(8).setMaxWidth(0);
+        tblListados.getColumnModel().getColumn(8).setMinWidth(0);
+        tblListados.getColumnModel().getColumn(8).setPreferredWidth(0);
     }
 
     /* METODO PARA MOSTRAR E INHABILITAR CAJAS DE TEXTO */
@@ -410,8 +410,8 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
                     .addComponent(lblBuscar)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
@@ -517,9 +517,9 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -543,9 +543,12 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         txtEmail.setText(tblListados.getValueAt(fila, 5).toString());
         txtContacto.setText(tblListados.getValueAt(fila, 6).toString());
         txtDireccion.setText(tblListados.getValueAt(fila, 7).toString());
-        txtPlaca.setText(tblListados.getValueAt(fila, 8).toString());
-        cboMarcaVehiculo.setSelectedItem(tblListados.getValueAt(fila, 9).toString());
-        cboLinea.setSelectedItem(tblListados.getValueAt(fila, 10).toString());
+        txtIdvehiculo.setText(tblListados.getValueAt(fila, 8).toString());
+        txtPlaca.setText(tblListados.getValueAt(fila, 9).toString());
+        cboMarcaVehiculo.setSelectedItem(tblListados.getValueAt(fila, 10).toString());
+        cboLinea.setSelectedItem(tblListados.getValueAt(fila, 11).toString());
+        cboModelo.setSelectedItem(tblListados.getValueAt(fila, 12).toString());
+        cboColor.setSelectedItem(tblListados.getValueAt(fila, 13).toString());
 
     }//GEN-LAST:event_tblListadosMouseClicked
 

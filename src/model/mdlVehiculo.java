@@ -33,17 +33,18 @@ public class mdlVehiculo {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID","Tipo documento","Documento", "Nombres", "Apellidos", "email","IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color"};
+        String[] titulos = {"ID","Tipo documento","Documento", "Nombres", "Apellidos", "email","Contacto","Dirección","IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[12];
+        String[] registro = new String[14];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT v.IDvehiculo,p.IDpropietario,e.tipo_documento,e.numero_documento,e.nombres,e.apellidos,e.email,v.placa,v.marca,v.linea,v.modelo,v.color FROM vehiculo v"
+        sSQL = "SELECT v.IDvehiculo,p.IDpropietario,e.tipo_documento,e.numero_documento,e.nombres,e.apellidos,e.email,e.contacto,"
+                + "e.direccion,v.placa,v.marca,v.linea,v.modelo,v.color FROM vehiculo v"
                 + " INNER JOIN propietario p ON v.idpropietario=p.IDpropietario INNER JOIN persona e ON p.IDpropietario=e.IDpersona"
                 + " WHERE placa LIKE '%" + buscar + "%' ORDER BY IDvehiculo DESC";
 
@@ -60,12 +61,14 @@ public class mdlVehiculo {
                 registro[3] = rs.getString("nombres");
                 registro[4] = rs.getString("apellidos");
                 registro[5] = rs.getString("email");
-                registro[6] = rs.getString("IDvehiculo");
-                registro[7] = rs.getString("placa");
-                registro[8] = rs.getString("marca");
-                registro[9] = rs.getString("linea");
-                registro[10] = rs.getString("modelo");
-                registro[11] = rs.getString("color");
+                registro[6] = rs.getString("contacto");
+                registro[7] = rs.getString("direccion");
+                registro[8] = rs.getString("IDvehiculo");
+                registro[9] = rs.getString("placa");
+                registro[10] = rs.getString("marca");
+                registro[11] = rs.getString("linea");
+                registro[12] = rs.getString("modelo");
+                registro[13] = rs.getString("color");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);

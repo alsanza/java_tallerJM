@@ -24,7 +24,7 @@ public class Conexion {
             link = DriverManager.getConnection(this.url, this.users, this.pass);
 
         } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showConfirmDialog(null, "Erron en la conexión" + e);
         }
 
         return link;
