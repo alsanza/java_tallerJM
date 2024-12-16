@@ -32,18 +32,18 @@ public class mdlPropietario {
         DefaultTableModel modelo;
         
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID","Tipo documento", "Número documento","Nombres","Apellidos","Email","Teléfono","Dirección"};
+        String[] titulos = {"ID","Tipo documento", "Número documento","Nombres","Apellidos","Email","Teléfono","Dirección","Municipio"};
         
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[8];
+        String[] registro = new String[9];
         
         totalregistros=0;
         
         modelo = new DefaultTableModel(null, titulos);
         
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL="SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,p.estado," +
-                "p.fecha_registro FROM persona p INNER JOIN propietario t ON p.IDpersona=t.IDpropietario " +
+        sSQL="SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,p.municipio,"
+                + "p.estado,p.fecha_registro FROM persona p INNER JOIN propietario t ON p.IDpersona=t.IDpropietario " +
                 "WHERE numero_documento LIKE '%"+ buscar +"%' ORDER BY IDpersona DESC";
         
         /* Capturador de errores */
@@ -60,7 +60,8 @@ public class mdlPropietario {
                 registro [4]=rs.getString("apellidos");
                 registro [5]=rs.getString("email");
                 registro [6]=rs.getString("contacto");
-                registro [7]=rs.getString("direccion");         
+                registro [7]=rs.getString("direccion");
+                registro [8]=rs.getString("municipio");
                
                 totalregistros=totalregistros+1;
                 modelo.addRow(registro);
@@ -80,8 +81,8 @@ public class mdlPropietario {
     */
     public boolean insertar(ctrPropietario dts){
         /* instrucción SQL insertar para la tabla persona */
-        sSQL="INSERT INTO persona (tipo_documento,numero_documento,nombres,apellidos,email,contacto,direccion,estado)" +
-             "VALUES (?,?,?,?,?,?,?,1)";
+        sSQL="INSERT INTO persona (tipo_documento,numero_documento,nombres,apellidos,email,contacto,direccion,municipio,estado)" +
+             "VALUES (?,?,?,?,?,?,?,?,?)";
         /* instrucción SQL insertar para la tabla empleado */
         sSQLp="INSERT INTO propietario (IDpropietario) VALUES ((SELECT IDpersona FROM persona ORDER BY IDpersona DESC LIMIT 1))";
         try {
@@ -96,6 +97,7 @@ public class mdlPropietario {
             pst.setString(5, dts.getEmail());
             pst.setString(6, dts.getContacto());
             pst.setString(7, dts.getDireccion());
+             pst.setString(7, dts.getMunicipio());
             
             int n=pst.executeUpdate();
             
@@ -126,7 +128,8 @@ public class mdlPropietario {
     public boolean editar(ctrPropietario dts){
         
         /* instrucción SQL */
-        sSQL="UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,estado=? WHERE IDpersona=?";
+        sSQL="UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,municipio=?,estado=?"
+                + " WHERE IDpersona=?";
         sSQLp="UPDATE propietario SET  WHERE IDpropietario=?";
         
         /* Creamos el manejador de errores */
@@ -142,14 +145,16 @@ public class mdlPropietario {
             pst.setString(5, dts.getEmail());
             pst.setString(6, dts.getContacto());
             pst.setString(7, dts.getDireccion());
-            pst.setInt(8, dts.getEstado());
-            pst.setInt(9, dts.getIDpersona());
+            pst.setString(8, dts.getMunicipio());
+            pst.setInt(9, dts.getEstado());
+            pst.setInt(10, dts.getIDpersona());
             
-            pstp.setInt(1, dts.getIDpropietario());
+            pstp.setInt(0, dts.getIDpropietario());
             
             int n=pst.executeUpdate();
             
             if(n!=0){
+                
                 int nc=pstp.executeUpdate();
                 
                 if (nc!=0) {

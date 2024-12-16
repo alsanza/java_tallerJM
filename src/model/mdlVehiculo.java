@@ -33,17 +33,17 @@ public class mdlVehiculo {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID","Tipo documento","Documento", "Nombres", "Apellidos", "email","Contacto","Dirección","IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color"};
+        String[] titulos = {"IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color","Documento", "Nombres", "Apellidos", "email","Contacto"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[14];
+        String[] registro = new String[11];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT v.IDvehiculo,p.IDpropietario,e.tipo_documento,e.numero_documento,e.nombres,e.apellidos,e.email,e.contacto,"
+        sSQL = "SELECT v.IDvehiculo,e.numero_documento,e.nombres,e.apellidos,e.email,e.contacto,"
                 + "e.direccion,v.placa,v.marca,v.linea,v.modelo,v.color FROM vehiculo v"
                 + " INNER JOIN propietario p ON v.idpropietario=p.IDpropietario INNER JOIN persona e ON p.IDpropietario=e.IDpersona"
                 + " WHERE placa LIKE '%" + buscar + "%' ORDER BY IDvehiculo DESC";
@@ -55,21 +55,18 @@ public class mdlVehiculo {
 
             /* recorrer los registros de la tabla */
             while (rs.next()) {
-                registro[0] = rs.getString("IDpropietario");
-                registro[1] = rs.getString("tipo_documento");
-                registro[2] = rs.getString("numero_documento");
-                registro[3] = rs.getString("nombres");
-                registro[4] = rs.getString("apellidos");
-                registro[5] = rs.getString("email");
-                registro[6] = rs.getString("contacto");
-                registro[7] = rs.getString("direccion");
-                registro[8] = rs.getString("IDvehiculo");
-                registro[9] = rs.getString("placa");
-                registro[10] = rs.getString("marca");
-                registro[11] = rs.getString("linea");
-                registro[12] = rs.getString("modelo");
-                registro[13] = rs.getString("color");
-
+                registro[0] = rs.getString("IDvehiculo");
+                registro[1] = rs.getString("placa");
+                registro[2] = rs.getString("marca");
+                registro[3] = rs.getString("linea");
+                registro[4] = rs.getString("modelo");
+                registro[5] = rs.getString("color");
+                registro[6] = rs.getString("numero_documento");
+                registro[7] = rs.getString("nombres");
+                registro[8] = rs.getString("apellidos");
+                registro[9] = rs.getString("email");
+                registro[10] = rs.getString("contacto");
+                
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
 
@@ -89,54 +86,28 @@ public class mdlVehiculo {
      */
     public boolean insertar(ctrVehiculo fila) {
         /* instrucción SQL insertar para la tabla persona */
-        sSQL = "INSERT INTO persona (tipo_documento,numero_documento,nombres,apellidos,email,contacto,direccion,estado)"
-                + "VALUES (?,?,?,?,?,?,?,1)";
-        /* instrucción SQL insertar para la tabla empleado */
-        sSQLp = "INSERT INTO propietario (IDpropietario) VALUES ((SELECT IDpersona FROM persona ORDER BY IDpersona DESC LIMIT 1))";
-
-        sSQLv = "INSERT INTO vehiculo (idpropietario,placa,marca,linea,modelo,color) VALUES ((SELECT IDpropietario FROM propietario ORDER BY IDpropietario DESC LIMIT 1),?,?,?,?,?)";
+       sSQL = "INSERT INTO vehiculo (idpropietario,placa,marca,linea,modelo,color) VALUES (?,?,?,?,?,?)";
         try {
             //REGISTROS SE OBTIENEN DE LA CLASE CTREMPLEADO DEL METODO GET
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            PreparedStatement pstp = cn.prepareStatement(sSQLp);
-            PreparedStatement pstv = cn.prepareStatement(sSQLv);
 
-            pst.setString(1, fila.getTipo_documento());
-            pst.setString(2, fila.getNumero_documento());
-            pst.setString(3, fila.getNombres());
-            pst.setString(4, fila.getApellidos());
-            pst.setString(5, fila.getEmail());
-            pst.setString(6, fila.getContacto());
-            pst.setString(7, fila.getDireccion());
-
-            pstv.setString(1, fila.getPlaca());
-            pstv.setString(2, fila.getMarca());
-            pstv.setString(3, fila.getLinea());
-            pstv.setString(4, fila.getModelo());
-            pstv.setString(5, fila.getColor());
+            pst.setInt(1, fila.getIDpropietario());
+            pst.setString(2, fila.getPlaca());
+            pst.setString(3, fila.getMarca());
+            pst.setString(4, fila.getLinea());
+            pst.setString(5, fila.getModelo());
+            pst.setString(6, fila.getColor());
 
             int n = pst.executeUpdate();
 
             if (n != 0) {
-                int nc = pstp.executeUpdate();
-
-                if (nc != 0) {
-
-                    int nv = pstv.executeUpdate();
-
-                    if (nv != 0) {
-
-                        return true;
-
-                    } else {
-
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
+                
+               return true;
+               
             } else {
+                
                 return false;
+                
             }
 
         } catch (Exception e) {
@@ -151,55 +122,30 @@ public class mdlVehiculo {
      */
     public boolean editar(ctrVehiculo fila) {
         /* instrucción SQL */
-        sSQL = "UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,estado=? WHERE IDpersona=?";
-        sSQLp = "UPDATE propietario SET  WHERE IDpropietario=?";
-        sSQLv = "UPDATE vehiculo SET placa=?,marca=?,linea=?,modelo=?,color=? WHERE IDvehiculo=?";
+       
+        sSQL = "UPDATE vehiculo SET placa=?,marca=?,linea=?,modelo=?,color=? WHERE IDvehiculo=?";
 
         /* Creamos el manejador de errores */
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            PreparedStatement pstp = cn.prepareStatement(sSQLp);
-            PreparedStatement pstv = cn.prepareStatement(sSQLv);
-
-            pst.setString(1, fila.getTipo_documento());
-            pst.setString(2, fila.getNumero_documento());
-            pst.setString(3, fila.getNombres());
-            pst.setString(4, fila.getApellidos());
-            pst.setString(5, fila.getEmail());
-            pst.setString(6, fila.getContacto());
-            pst.setString(7, fila.getDireccion());
-            pst.setInt(8, fila.getEstado());
-            pst.setInt(9, fila.getIDpersona());
-
-            pstv.setString(1, fila.getPlaca());
-            pstv.setString(2, fila.getMarca());
-            pstv.setString(3, fila.getLinea());
-            pstv.setString(4, fila.getModelo());
-            pstv.setString(5, fila.getColor());
+            
+            pst.setString(1, fila.getPlaca());
+            pst.setString(2, fila.getMarca());
+            pst.setString(3, fila.getLinea());
+            pst.setString(4, fila.getModelo());
+            pst.setString(5, fila.getColor());
 
             int n = pst.executeUpdate();
 
             if (n != 0) {
-                int nc = pstp.executeUpdate();
-
-                if (nc != 0) {
-
-                    int nv = pstv.executeUpdate();
-
-                    if (nv != 0) {
-
-                        return true;
-
-                    } else {
-
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
+                
+               return true;
+               
             } else {
+                
                 return false;
+                
             }
 
         } catch (Exception e) {
@@ -214,36 +160,25 @@ public class mdlVehiculo {
      */
     public boolean eliminar(ctrVehiculo fila) {
         /* instrucción SQL */
-        sSQL = "DELETE FROM empleado WHERE IDempleado=?";
-
-        sSQLp = "DELETE FROM persona WHERE IDpersona=?";
-
-        sSQLv = "DELETE FROM vehiculo WHERE IDvehiculo=?";
+        sSQL = "DELETE FROM vehiculo WHERE IDvehiculo=?";
 
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            PreparedStatement pstp = cn.prepareStatement(sSQLp);
-            PreparedStatement pstv = cn.prepareStatement(sSQLv);
+            
 
-            pst.setInt(1, fila.getIDpropietario());
-            pstp.setInt(1, fila.getIDpersona());
-            pstv.setInt(1, fila.getIDpersona());
+            pst.setInt(1, fila.getIDvehiculo());
 
             int n = pst.executeUpdate();
 
             if (n != 0) {
-                int nc = pst.executeUpdate();
-
-                if (nc != 0) {
-
-                    return true;
-
-                } else {
-                    return false;
-                }
+                
+                return true;
+                
             } else {
+                
                 return false;
+                
             }
 
         } catch (Exception e) {

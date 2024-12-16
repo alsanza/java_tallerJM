@@ -25,7 +25,7 @@ public class cargarCombo {
 
             ctrMarca mar = new ctrMarca();
             mar.setIDmarca(0);
-            mar.setDescripcion("Selecciona una marca");
+            mar.setDescripcion("Seleccione una marca");
             datos.add(mar);
 
             while (rs.next()) {

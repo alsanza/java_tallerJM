@@ -27,18 +27,18 @@ public class mdlEmpleado {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID", "Tipo documento", "Número documento", "Nombres", "Apellidos", "Email", "Teléfono","Dirección",
-                            "Estado","IDempleado","Cargo", "Sueldo", "Usuario","password","Fecha Registro"};
+        String[] titulos = {"ID", "Tipo documento", "Número documento", "Nombres", "Apellidos", "Email", "Teléfono", "Dirección","municipio",
+            "Estado", "IDempleado", "Cargo", "Sueldo", "Usuario", "password", "Fecha Registro"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[15];
+        String[] registro = new String[16];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,"
+        sSQL = "SELECT p.IDpersona,p.tipo_documento,p.numero_documento,p.nombres,p.apellidos,p.email,p.contacto,p.direccion,p.municipio,"
                 + "p.estado,p.fecha_registro,t.IDempleado,t.cargo,t.salario,t.usuario,t.password FROM empleado t INNER JOIN persona p ON t.IDempleado=p.IDpersona "
                 + "WHERE numero_documento LIKE '%" + buscar + "%' ORDER BY IDempleado ASC";
 
@@ -57,13 +57,14 @@ public class mdlEmpleado {
                 registro[5] = rs.getString("email");
                 registro[6] = rs.getString("contacto");
                 registro[7] = rs.getString("direccion");
-                registro[8] = rs.getString("estado");
-                registro[9] = rs.getString("IDempleado");
-                registro[10] = rs.getString("cargo");
-                registro[11] = rs.getString("salario");
-                registro[12] = rs.getString("usuario");
-                registro[13] = rs.getString("password");
-                registro[14] = rs.getString("fecha_registro");
+                 registro[8] = rs.getString("municipio");
+                registro[9] = rs.getString("estado");
+                registro[10] = rs.getString("IDempleado");
+                registro[11] = rs.getString("cargo");
+                registro[12] = rs.getString("salario");
+                registro[13] = rs.getString("usuario");
+                registro[14] = rs.getString("password");
+                registro[15] = rs.getString("fecha_registro");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -80,8 +81,8 @@ public class mdlEmpleado {
     /* INSERTAR REGISTROS */
     public boolean insertar(ctrEmpleado dts) {
         /* instrucción SQL insertar para la tabla persona */
-        sSQL = "INSERT INTO persona (tipo_documento,numero_documento,nombres,apellidos,email,contacto,direccion,estado)"
-                + "VALUES (?,?,?,?,?,?,?,1)";
+        sSQL = "INSERT INTO persona (tipo_documento,numero_documento,nombres,apellidos,email,contacto,direccion,municipio,estado)"
+                + "VALUES (?,?,?,?,?,?,?,?,?)";
         /* instrucción SQL insertar para la tabla empleado */
         sSQLt = "INSERT INTO empleado (IDempleado,cargo,salario,usuario,password) VALUES ((SELECT IDpersona FROM persona ORDER BY IDpersona DESC LIMIT 1),?,?,?,?)";
         try {
@@ -96,6 +97,8 @@ public class mdlEmpleado {
             pst.setString(5, dts.getEmail());
             pst.setString(6, dts.getContacto());
             pst.setString(7, dts.getDireccion());
+            pst.setString(8, dts.getMunicipio());
+            pst.setInt(9, dts.getEstado());
 
             //pst.setInt(8, dts.getEstado());
             pstp.setString(1, dts.getCargo());
@@ -125,10 +128,30 @@ public class mdlEmpleado {
         }
     }
 
+    // Metodo para validar registros duplicados
+    public boolean registroDuplicado(String usuario) {
+        boolean respuesta = false;
+        sSQL = "SELECT usuario FROM empleado WHERE usuario = '" + usuario + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+                respuesta = true;
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            
+        }
+        return respuesta;
+    }
+
     /* EDITAR REGISTROS RECIBIMO EL CONTROLADOR Y LO LLAMAMOS DTS */
     public boolean editar(ctrEmpleado dts) {
         /* instrucción SQL */
-        sSQL = "UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,estado=? WHERE IDpersona=?";
+        sSQL = "UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,municipio=?,estado=? WHERE IDpersona=?";
         sSQLt = "UPDATE empleado SET cargo=?,salario=?,usuario=?,password=? WHERE IDempleado=?";
 
         /* Creamos el manejador de errores */
@@ -144,8 +167,9 @@ public class mdlEmpleado {
             pst.setString(5, dts.getEmail());
             pst.setString(6, dts.getContacto());
             pst.setString(7, dts.getDireccion());
-            pst.setInt(8, dts.getEstado());
-            pst.setInt(9, dts.getIDpersona());
+            pst.setString(8, dts.getMunicipio());
+            pst.setInt(9, dts.getEstado());
+            pst.setInt(10, dts.getIDpersona());
 
             pste.setString(1, dts.getCargo());
             pste.setDouble(2, dts.getSalario());
@@ -214,7 +238,7 @@ public class mdlEmpleado {
     }
 
     public DefaultTableModel login(String login, String password) {
-        DefaultTableModel modelo= new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel();
 
         String[] titulos = {"ID", "Nombres", "Apellidos", "Usuario", "password", "estado"};
         String[] registro = new String[6];
@@ -223,8 +247,8 @@ public class mdlEmpleado {
         modelo = new DefaultTableModel(null, titulos);
 
         // Creamos la consulta SQL para traer de la tabla persona el nombre y el apellido y relacionamos con la tabla empelado
-        sSQL = "SELECT p.IDpersona,p.nombres,p.apellidos,p.estado,e.usuario,e.password FROM persona p INNER JOIN empleado e" + 
-                " ON p.IDpersona=e.IDempleado WHERE e.usuario='"+ login +"' AND e.password='" + password + "' AND p.estado=1";
+        sSQL = "SELECT p.IDpersona,p.nombres,p.apellidos,p.estado,e.usuario,e.password FROM persona p INNER JOIN empleado e"
+                + " ON p.IDpersona=e.IDempleado WHERE e.usuario='" + login + "' AND e.password='" + password + "' AND p.estado=1";
 
         try {
             Statement st = cn.createStatement();
@@ -235,7 +259,7 @@ public class mdlEmpleado {
                 registro[1] = rs.getString("nombres");
                 registro[2] = rs.getString("apellidos");
                 registro[3] = rs.getString("estado");
-                
+
                 registro[4] = rs.getString("usuario");
                 registro[5] = rs.getString("password");
 

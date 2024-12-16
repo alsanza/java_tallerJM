@@ -11,7 +11,8 @@ public class ctrPersona {
     private String email = "";
     private String contacto = "";
     private String direccion = "";
-    private int estado = 1;
+    private String municipio = "";
+    private int estado = 0;
 
     public ctrPersona() {
     }
@@ -25,6 +26,7 @@ public class ctrPersona {
         this.email = email;
         this.contacto = contacto;
         this.direccion = direccion;
+        this.municipio = municipio;
         this.estado = estado;
     }
 
@@ -91,7 +93,15 @@ public class ctrPersona {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
+     public String getMunicipio() {
+        return municipio;
+    }
+    
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+    
     public int getEstado() {
         return estado;
     }

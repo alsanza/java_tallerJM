@@ -33,10 +33,6 @@ public class frmVehiculoTestMarca extends javax.swing.JInternalFrame {
         tblListados.getColumnModel().getColumn(0).setMaxWidth(0);
         tblListados.getColumnModel().getColumn(0).setMinWidth(0);
         tblListados.getColumnModel().getColumn(0).setPreferredWidth(0);
-
-        tblListados.getColumnModel().getColumn(8).setMaxWidth(0);
-        tblListados.getColumnModel().getColumn(8).setMinWidth(0);
-        tblListados.getColumnModel().getColumn(8).setPreferredWidth(0);
     }
 
     /* METODO PARA MOSTRAR E INHABILITAR CAJAS DE TEXTO */

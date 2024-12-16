@@ -92,6 +92,7 @@ public class mdlCotizacion {
             pst.setDate(2, dts.getFecha_cotizacion());
             pst.setInt(3, dts.getId_vehiculo());
             pst.setDate(4, dts.getFecha_vencimiento());
+            
 
             int n = pst.executeUpdate();
 

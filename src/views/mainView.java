@@ -32,9 +32,10 @@ public class mainView extends javax.swing.JFrame {
     public mainView() {
         initComponents();
         this.setExtendedState(mainView.MAXIMIZED_BOTH);
-        this.setTitle("Sistema gestión taller JM");
+        this.setTitle("Sistema gestión talleres L&P");
     }
     
+    /* Metodo para cambiar el icono de la ventana.*/
     @Override
     public Image getIconImage(){
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/car.png"));
@@ -178,6 +179,7 @@ public class mainView extends javax.swing.JFrame {
         });
         accionesMenu.add(aboutMenuItem);
 
+        jmnMarcaVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/implementation.png"))); // NOI18N
         jmnMarcaVehiculo.setText("Reprocesos");
         jmnMarcaVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,7 +456,7 @@ public class mainView extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem jmnMarcaVehiculo;
-    private javax.swing.JDesktopPane mainPane;
+    public static javax.swing.JDesktopPane mainPane;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mnuEmpleado;
     private javax.swing.JMenuItem mnuItemContenido;

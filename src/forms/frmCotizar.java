@@ -37,7 +37,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
     void inhabilitar() {
 
         txtIdCotizacion.setVisible(false);
-        txtIdVehiculo.setVisible(true);
+        txtIdVehiculo.setVisible(false);
 
         txtNrocotizacion.setEnabled(false);
         dtcFechaCotizacion.setEnabled(false);
@@ -53,6 +53,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(false);
         btnEliminar.setEnabled(false);
 
+        txtIdVehiculo.setText("");
         txtPlaca.setText("");
         txtMarca.setText("");
         txtLinea.setText("");
@@ -63,8 +64,8 @@ public class frmCotizar extends javax.swing.JInternalFrame {
     void habilitar() {
 
         txtIdCotizacion.setVisible(false);
-        txtIdVehiculo.setVisible(true);
-        
+        txtIdVehiculo.setVisible(false);
+
         txtNrocotizacion.setEnabled(false);
         dtcFechaCotizacion.setEnabled(true);
         jdcFechaVencimiento.setEnabled(true);
@@ -79,6 +80,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(true);
         btnEliminar.setEnabled(true);
 
+        txtIdVehiculo.setText("");
         txtPlaca.setText("");
         txtMarca.setText("");
         txtLinea.setText("");
@@ -131,12 +133,11 @@ public class frmCotizar extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         txtColor = new javax.swing.JTextField();
         txtMarca = new javax.swing.JTextField();
-        btnAbrirVehiculo = new javax.swing.JButton();
         txtIdVehiculo = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         borderPanel2 = new components.BorderPanel();
         jLabel1 = new javax.swing.JLabel();
         txtDescripcionPieza = new javax.swing.JTextField();
-        btnAbrirPrecios = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtPrecioUnitario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -147,6 +148,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         txtDescripcionTrabajo = new javax.swing.JTextField();
         txtSubTotal = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListados = new javax.swing.JTable();
@@ -233,14 +235,10 @@ public class frmCotizar extends javax.swing.JInternalFrame {
 
         txtMarca.setToolTipText("");
 
-        btnAbrirVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
-        btnAbrirVehiculo.setAlignmentX(0.5F);
-        btnAbrirVehiculo.setBorder(null);
-        btnAbrirVehiculo.setBorderPainted(false);
-        btnAbrirVehiculo.setIconTextGap(8);
-        btnAbrirVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirVehiculoActionPerformed(evt);
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
             }
         });
 
@@ -260,8 +258,8 @@ public class frmCotizar extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAbrirVehiculo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13))
                             .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
@@ -275,7 +273,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtIdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -283,12 +281,11 @@ public class frmCotizar extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(txtIdVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAbrirVehiculo))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel9)
@@ -311,17 +308,6 @@ public class frmCotizar extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Seleccione pieza:");
 
-        btnAbrirPrecios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
-        btnAbrirPrecios.setAlignmentX(0.5F);
-        btnAbrirPrecios.setBorder(null);
-        btnAbrirPrecios.setBorderPainted(false);
-        btnAbrirPrecios.setIconTextGap(8);
-        btnAbrirPrecios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirPreciosActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Precio unitario:");
 
         jLabel3.setText("Total:");
@@ -335,6 +321,13 @@ public class frmCotizar extends javax.swing.JInternalFrame {
         txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubTotalActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
             }
         });
 
@@ -356,7 +349,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
                             .addGroup(borderPanel2Layout.createSequentialGroup()
                                 .addComponent(txtDescripcionPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAbrirPrecios))
+                                .addComponent(jLabel7))
                             .addComponent(txtPorcentajeDaño, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(borderPanel2Layout.createSequentialGroup()
@@ -380,10 +373,10 @@ public class frmCotizar extends javax.swing.JInternalFrame {
             .addGroup(borderPanel2Layout.createSequentialGroup()
                 .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(borderPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescripcionPieza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAbrirPrecios, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGap(16, 16, 16)
+                        .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDescripcionPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)))
                     .addGroup(borderPanel2Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1)))
@@ -613,22 +606,22 @@ public class frmCotizar extends javax.swing.JInternalFrame {
         dts.setCotizacion_nro(Integer.parseInt(txtNrocotizacion.getText()));
         /*
         * Guardar formato de fechas
-        */
+         */
         Calendar cal;
-        int d,m,a;
-        cal=dtcFechaCotizacion.getCalendar();
-        d=cal.get(Calendar.DAY_OF_MONTH);
-        m=cal.get(Calendar.MONTH);
-        a=cal.get(Calendar.YEAR) - 1900;
-        dts.setFecha_cotizacion(new Date(a,m,d));
-        
+        int d, m, a;
+        cal = dtcFechaCotizacion.getCalendar();
+        d = cal.get(Calendar.DAY_OF_MONTH);
+        m = cal.get(Calendar.MONTH);
+        a = cal.get(Calendar.YEAR) - 1900;
+        dts.setFecha_cotizacion(new Date(a, m, d));
+
         dts.setId_vehiculo(Integer.parseInt(txtIdVehiculo.getText()));
-        
-        cal=jdcFechaVencimiento.getCalendar();
-        d=cal.get(Calendar.DAY_OF_MONTH);
-        m=cal.get(Calendar.MONTH);
-        a=cal.get(Calendar.YEAR) - 1900;
-        dts.setFecha_vencimiento(new Date(a,m,d));
+
+        cal = jdcFechaVencimiento.getCalendar();
+        d = cal.get(Calendar.DAY_OF_MONTH);
+        m = cal.get(Calendar.MONTH);
+        a = cal.get(Calendar.YEAR) - 1900;
+        dts.setFecha_vencimiento(new Date(a, m, d));
 
         /* PREGUNTAMOS QUE ACCION VAMOS A EJECUTAR */
         if (accion.equals("guardar")) {
@@ -665,34 +658,37 @@ public class frmCotizar extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    // Agregamos el último ID obtenido a la caja de texto
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
 
-        habilitar();
         int ultimoID = dbHelper.obtenerUltimoID();
         int nuevoID = ultimoID + 1;
+
+        habilitar();
+
         txtNrocotizacion.setText(String.valueOf(nuevoID));
         btnGuardar.setText("Guardar");
         accion = "guardar";
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void btnAbrirPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPreciosActionPerformed
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         frmVistaPrecios form = new frmVistaPrecios();
         form.toFront();
         form.setVisible(true);
-    }//GEN-LAST:event_btnAbrirPreciosActionPerformed
+    }//GEN-LAST:event_jLabel7MouseClicked
 
-    private void btnAbrirVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirVehiculoActionPerformed
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         // TODO add your handling code here:
         frmVistaVehiculo form = new frmVistaVehiculo();
         form.toFront();
         form.setVisible(true);
-    }//GEN-LAST:event_btnAbrirVehiculoActionPerformed
-
-    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSubTotalActionPerformed
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
@@ -739,8 +735,6 @@ public class frmCotizar extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.BorderPanel borderPanel1;
     private components.BorderPanel borderPanel2;
-    private javax.swing.JButton btnAbrirPrecios;
-    private javax.swing.JButton btnAbrirVehiculo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
@@ -751,6 +745,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -759,6 +754,7 @@ public class frmCotizar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;

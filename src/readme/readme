@@ -1,6 +1,10 @@
 LOGIN
-Metodo de igreso usuario, se puede mejorar 
 https://www.youtube.com/watch?v=8ggcEv53z3c&list=PL3Acx4r6rKWOrx19qPNGnKBcogB3DuniB&index=4
+Antes de escribir esta línea de código debemos realizar uno ajustes en las propiedades de la ventana, en la pestaña propiedades
+buscamos la opcion que dice "IconImage" damos click en los tres puntos y seleccionamos la opcion que dice "valor de componente existente"
+seleccionamos la opción que dice "Propiedad" damos en los tres puntos y "Form" "IconImage"
+Metodo de igreso usuario, se puede mejorar 
+
 
 CREAR EL FORMULARIO PARA INGRESAR LOS VALORES PREDETERMINADOS DE LOS SERVICIOS
 para realizar esta acción tenemos la opción de diseñar en un combobox que traiga los datos de la base de datos y que cuando cambie
@@ -14,11 +18,17 @@ SELECT per.nombres,per.apellidos,v.placa,m.descripcion,l.descripcion,v.modelo,v.
 " v.fk_marca=m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea=l.IDlinea_vehiculo WHERE IDvehiculo=1";
 
 VEHICULOS
-Esta funcionalidad permite crear un vehículo y su propietario en el sistema, al ejecutar afecta la tabla persona, propietario y 
-vehiculo.
+Esta funcionalidad permite crear un vehículo en el sistema para luego ser gestionado
+pre-requisito: el propietario debe estar creado en el sistema para poder obtener su ID y relacionarlo con el vehículo.
+en el formulario de propietarios, se encuentra una tabla con el registo de propietarios, seleccionamos el propietario que
+vamos a relacionar con el vehículo, y damos click en el boton "Agregar", se debe desplegar una ventana con el listado de 
+vehículos existentes en la bd y la opción para crear un nuevo vehículo, damos click en el botón nuevo y las cajas de texto 
+deben quedar editables listas para recibir la nueva información. En caso tal de que el usuario NO seleccione ningún registro 
+de la tabla propietarios, el sistema arrojará un error y lanzará un mensaje de error pidiendo al usuario que selecciones un 
+propietario antes de continuar.
 
-Error de ejecución los atributos marca y linea esperan un IDmarca y IDlinea y el formulario esta enviando Strigs porque para llenar
-los datos del combobox en el formulario de precio pieza
+Error de ejecución los atributos marca y linea esperan un IDmarca y IDlinea y el formulario esta enviando Strigs porque para 
+llenar los datos del combobox en el formulario de precio pieza
 
 COTIZACION
 Para este módulo en el campo Nro cotizacion, quiero:

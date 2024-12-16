@@ -4,6 +4,7 @@ import controller.ctrPropietario;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.mdlPropietario;
+import views.mainView;
 
 public class frmPropietario extends javax.swing.JInternalFrame {
 
@@ -18,16 +19,19 @@ public class frmPropietario extends javax.swing.JInternalFrame {
 
     private String accion = "guardar";
 
-    void ocultar_columnas() {
+    void gestionar_columnas() {
         tblListados.getColumnModel().getColumn(0).setMaxWidth(0);
         tblListados.getColumnModel().getColumn(0).setMinWidth(0);
         tblListados.getColumnModel().getColumn(0).setPreferredWidth(0);
+
+        tblListados.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tblListados.getColumnModel().getColumn(3).setPreferredWidth(40);
     }
 
     /* METODO PARA MOSTRAR E INHABILITAR CAJAS DE TEXTO */
     void inhabilitar() {
         txtIdpropietario.setVisible(false);
-        
+
         cboTipodocumento.setEnabled(false);
         txtNumdocumento.setEnabled(false);
         txtNombres.setEnabled(false);
@@ -35,6 +39,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         txtDireccion.setEnabled(false);
         txtContacto.setEnabled(false);
         txtEmail.setEnabled(false);
+        txtMunicipio.setEnabled(false);
 
         btnGuardar.setEnabled(false);
         btnCancelar.setEnabled(false);
@@ -46,12 +51,13 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtContacto.setText("");
         txtEmail.setText("");
+        txtMunicipio.setText("");
     }
 
     /* METODO PARA MOSTRAR E INHABILITAR CAJAS DE TEXTO */
     void habilitar() {
         txtIdpropietario.setVisible(false);
-        
+
         cboTipodocumento.setEnabled(true);
         txtNumdocumento.setEnabled(true);
         txtNombres.setEnabled(true);
@@ -59,6 +65,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         txtDireccion.setEnabled(true);
         txtContacto.setEnabled(true);
         txtEmail.setEnabled(true);
+        txtMunicipio.setEnabled(true);
 
         btnGuardar.setEnabled(true);
         btnCancelar.setEnabled(true);
@@ -71,6 +78,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtContacto.setText("");
         txtEmail.setText("");
+        txtMunicipio.setText("");
 
     }
 
@@ -82,7 +90,8 @@ public class frmPropietario extends javax.swing.JInternalFrame {
             modelo = func.mostrar(buscar);
 
             tblListados.setModel(modelo);
-            ocultar_columnas();
+            tblListados.setRowHeight(30);
+            gestionar_columnas();
             lblTotalregistros.setText("Total Registros" + " " + Integer.toString(func.totalregistros));
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(rootPane, e);
@@ -115,6 +124,8 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtMunicipio = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         lblBuscar = new javax.swing.JLabel();
@@ -125,6 +136,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         lblTotalregistros = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListados = new javax.swing.JTable();
+        btnAddCar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 153, 255));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -161,6 +173,8 @@ public class frmPropietario extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel8.setText("Municipio:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,28 +202,33 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel4))
-                .addContainerGap(47, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4))
+                        .addContainerGap(47, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(txtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(txtIdpropietario))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addGap(10, 10, 10)
@@ -219,11 +238,13 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboTipodocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdpropietario)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cboTipodocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNumdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)
@@ -236,13 +257,17 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnGuardar.setBackground(new java.awt.Color(62, 217, 93));
+        btnGuardar.setBackground(new java.awt.Color(51, 204, 0));
         btnGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save_folder.png"))); // NOI18N
@@ -308,6 +333,17 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblListados);
 
+        btnAddCar.setBackground(new java.awt.Color(51, 102, 255));
+        btnAddCar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAddCar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddCar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add_car.png"))); // NOI18N
+        btnAddCar.setText("Agregar");
+        btnAddCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -327,7 +363,9 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnSalir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddCar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTotalregistros)
                         .addGap(250, 250, 250))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -351,8 +389,9 @@ public class frmPropietario extends javax.swing.JInternalFrame {
                     .addComponent(btnEliminar)
                     .addComponent(btnSalir)
                     .addComponent(btnCancelar)
-                    .addComponent(lblTotalregistros))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(lblTotalregistros)
+                    .addComponent(btnAddCar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -381,53 +420,59 @@ public class frmPropietario extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (cboTipodocumento.getSelectedItem().toString().equals("Seleccione una opción") ) {
-        JOptionPane.showConfirmDialog(null, "Debes seleccionar un tipo de documento");
-        cboTipodocumento.requestFocus();
-        return;
+        if (cboTipodocumento.getSelectedItem().toString().equals("Seleccione una opción")) {
+            JOptionPane.showConfirmDialog(null, "Debes seleccionar un tipo de documento");
+            cboTipodocumento.requestFocus();
+            return;
+        }
+
+        if (txtNumdocumento.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar un número de documento");
+            txtNumdocumento.requestFocus();
+            return;
+        }
+
+        if (txtNombres.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar los nombres del propietario");
+            txtNombres.requestFocus();
+            return;
+        }
+
+        if (txtApellidos.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar los apellidos para el propietario");
+            txtApellidos.requestFocus();
+            return;
+        }
+
+        if (txtEmail.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar una direción de correo electrónico");
+            txtEmail.requestFocus();
+            return;
+        }
+
+        if (txtContacto.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar un número de contacto");
+            txtContacto.requestFocus();
+            return;
+        }
+
+        if (txtDireccion.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar una direcion");
+            txtDireccion.requestFocus();
+            return;
         }
         
-        if(txtNumdocumento.getText().length() == 0){
-        JOptionPane.showConfirmDialog(null, "Debes ingresar un número de documento");
-        txtNumdocumento.requestFocus();
-        return;
-        }
-       
-        if(txtNombres.getText().length() == 0){
-        JOptionPane.showConfirmDialog(null, "Debes ingresar los nombres del propietario");
-        txtNombres.requestFocus();
-        return;
-        }
-        
-        if(txtApellidos.getText().length() == 0){
-        JOptionPane.showConfirmDialog(null, "Debes ingresar los apellidos para el propietario");
-        txtApellidos.requestFocus();
-        return;
-        }
-                
-        if(txtEmail.getText().length() == 0){
-        JOptionPane.showConfirmDialog(null, "Debes ingresar una direción de correo electrónico");
-        txtEmail.requestFocus();
-        return;
-        }
-        
-        if(txtContacto.getText().length() == 0){
-        JOptionPane.showConfirmDialog(null, "Debes ingresar un número de contacto");
-        txtContacto.requestFocus();
-        return;
-        }
-        
-        if(txtDireccion.getText().length() == 0){
-        JOptionPane.showConfirmDialog(null, "Debes ingresar una direcion");
-        txtDireccion.requestFocus();
-        return;
+        if (txtMunicipio.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(null, "Debes ingresar un municipio");
+            txtMunicipio.requestFocus();
+            return;
         }
 
         /* INSTANCIAMOS LAS CLASES CTREMPLEADO Y MDLEMPLEADO*/
         ctrPropietario dts = new ctrPropietario();
         mdlPropietario func = new mdlPropietario();
 
-        /* pasamos la informacion que viene de las cajas de texto y recibe los datos por el metod Setter */   
+        /* pasamos la informacion que viene de las cajas de texto y recibe los datos por el metod Setter */
         int seleccionado = cboTipodocumento.getSelectedIndex();
         dts.setTipo_documento((String) cboTipodocumento.getItemAt(seleccionado));
 
@@ -437,6 +482,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         dts.setEmail(txtEmail.getText());
         dts.setContacto(txtContacto.getText());
         dts.setDireccion(txtDireccion.getText());
+        dts.setMunicipio(txtMunicipio.getText());
 
         /* PREGUNTAMOS QUE ACCION VAMOS A EJECUTAR */
         if (accion.equals("guardar")) {
@@ -460,7 +506,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     /* Función para poner todos los textBox en blanco*/
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        
+
         txtNumdocumento.setText("");
         txtIdpropietario.setText("");
         txtNombres.setText("");
@@ -468,6 +514,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtContacto.setText("");
         txtEmail.setText("");
+        txtMunicipio.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -478,11 +525,11 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         if (!txtIdpropietario.getText().equals("")) {
-            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de Eliminar el propieatio?","Confirmar",2);
+            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de Eliminar el propieatio?", "Confirmar", 2);
 
-            if (confirmacion==0) {
+            if (confirmacion == 0) {
                 mdlPropietario func = new mdlPropietario();
-                ctrPropietario dts= new ctrPropietario();
+                ctrPropietario dts = new ctrPropietario();
 
                 dts.setIDpropietario(Integer.parseInt(txtIdpropietario.getText()));
                 func.eliminar(dts);
@@ -519,7 +566,25 @@ public class frmPropietario extends javax.swing.JInternalFrame {
         txtEmail.setText(tblListados.getValueAt(fila, 5).toString());
         txtContacto.setText(tblListados.getValueAt(fila, 6).toString());
         txtDireccion.setText(tblListados.getValueAt(fila, 7).toString());
+        txtMunicipio.setText(tblListados.getValueAt(fila, 8).toString());
     }//GEN-LAST:event_tblListadosMouseClicked
+
+    private void btnAddCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarActionPerformed
+        // TODO add your handling code here:
+        int fila = tblListados.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un registro de la tabla.");
+        } else {
+            frmVehiculo.IDpropietario = tblListados.getValueAt(fila, 0).toString();
+
+            frmVehiculo form = new frmVehiculo();
+            mainView.mainPane.add(form);
+            form.toFront();
+            form.setVisible(true);
+        }
+
+    }//GEN-LAST:event_btnAddCarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -558,6 +623,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
@@ -571,6 +637,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -583,6 +650,7 @@ public class frmPropietario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIdpropietario;
+    private javax.swing.JTextField txtMunicipio;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNumdocumento;
     // End of variables declaration//GEN-END:variables

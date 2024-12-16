@@ -63,6 +63,7 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListadoVehiculos = new javax.swing.JTable();
         lblTotalRegistros = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,18 +96,28 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
 
         lblTotalRegistros.setText("Total registros: ");
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout borderPanel2Layout = new javax.swing.GroupLayout(borderPanel2);
         borderPanel2.setLayout(borderPanel2Layout);
         borderPanel2Layout.setHorizontalGroup(
             borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borderPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borderPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTotalRegistros)
-                .addGap(268, 268, 268))
+                .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borderPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borderPanel2Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTotalRegistros)
+                        .addGap(268, 268, 268))))
         );
         borderPanel2Layout.setVerticalGroup(
             borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,8 +125,10 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTotalRegistros)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(borderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalRegistros)
+                    .addComponent(btnCancelar))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout borderPanel1Layout = new javax.swing.GroupLayout(borderPanel1);
@@ -180,12 +193,12 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
             String mod;
             String colo;
 
-            idV = tblListadoVehiculos.getValueAt(fila, 0).toString();
-            pla = tblListadoVehiculos.getValueAt(fila, 3).toString();
-            mar = tblListadoVehiculos.getValueAt(fila, 4).toString();
-            lin = tblListadoVehiculos.getValueAt(fila, 5).toString();
-            mod = tblListadoVehiculos.getValueAt(fila, 6).toString();
-            colo = tblListadoVehiculos.getValueAt(fila, 7).toString();
+            idV = tblListadoVehiculos.getValueAt(fila, 8).toString();
+            pla = tblListadoVehiculos.getValueAt(fila, 9).toString();
+            mar = tblListadoVehiculos.getValueAt(fila, 10).toString();
+            lin = tblListadoVehiculos.getValueAt(fila, 11).toString();
+            mod = tblListadoVehiculos.getValueAt(fila, 12).toString();
+            colo = tblListadoVehiculos.getValueAt(fila, 13).toString();
             
             /*
             * Para poder accedar estas variables desde otro formulario, debo modificar las variables del otro
@@ -202,6 +215,11 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_tblListadoVehiculosMousePressed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +260,7 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.BorderPanel borderPanel1;
     private components.BorderPanel borderPanel2;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTotalRegistros;

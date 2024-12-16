@@ -6,8 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import model.mdlEmpleado;
 import views.mainView;
 
-/**
- *
+/*
  * @author alsan
  */
 public class frmLogin extends javax.swing.JFrame {
