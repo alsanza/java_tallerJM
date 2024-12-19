@@ -193,12 +193,12 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
             String mod;
             String colo;
 
-            idV = tblListadoVehiculos.getValueAt(fila, 8).toString();
-            pla = tblListadoVehiculos.getValueAt(fila, 9).toString();
-            mar = tblListadoVehiculos.getValueAt(fila, 10).toString();
-            lin = tblListadoVehiculos.getValueAt(fila, 11).toString();
-            mod = tblListadoVehiculos.getValueAt(fila, 12).toString();
-            colo = tblListadoVehiculos.getValueAt(fila, 13).toString();
+            idV = tblListadoVehiculos.getValueAt(fila, 0).toString();
+            pla = tblListadoVehiculos.getValueAt(fila, 1).toString();
+            mar = tblListadoVehiculos.getValueAt(fila, 2).toString();
+            lin = tblListadoVehiculos.getValueAt(fila, 3).toString();
+            mod = tblListadoVehiculos.getValueAt(fila, 4).toString();
+            colo = tblListadoVehiculos.getValueAt(fila, 5).toString();
             
             /*
             * Para poder accedar estas variables desde otro formulario, debo modificar las variables del otro

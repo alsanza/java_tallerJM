@@ -130,7 +130,7 @@ public class mdlPropietario {
         /* instrucción SQL */
         sSQL="UPDATE persona SET tipo_documento=?,numero_documento=?,nombres=?,apellidos=?,email=?,contacto=?,direccion=?,municipio=?,estado=?"
                 + " WHERE IDpersona=?";
-        sSQLp="UPDATE propietario SET  WHERE IDpropietario=?";
+        sSQLp="UPDATE propietario SET IDpropietario=? WHERE IDpropietario=?";
         
         /* Creamos el manejador de errores */
         try {

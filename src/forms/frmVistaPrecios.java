@@ -168,10 +168,12 @@ public class frmVistaPrecios extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             int fila = tblListadoPrecios.getSelectedRow();
+            String ID;
             String pre;
             String proc;
             String prec;
 
+            ID = tblListadoPrecios.getValueAt(fila, 0).toString();
             pre = tblListadoPrecios.getValueAt(fila, 4).toString();
             proc = tblListadoPrecios.getValueAt(fila, 5).toString();
             prec = tblListadoPrecios.getValueAt(fila, 6).toString();
@@ -180,9 +182,10 @@ public class frmVistaPrecios extends javax.swing.JFrame {
             * Para poder accedar estas variables desde otro formulario, debo modificar las variables del otro
             * formulario y colocarlas públicas y estaticas
              */
-            frmCotizar.txtDescripcionPieza.setText(pre);
-            frmCotizar.txtDescripcionTrabajo.setText(proc);
-            frmCotizar.txtPrecioUnitario.setText(prec);
+            frmDetalle_Cotizacion.txtValorServicioPieza.setText(ID);
+            frmDetalle_Cotizacion.txtDescripcionPieza.setText(pre);
+            frmDetalle_Cotizacion.txtDescripcionTrabajo.setText(proc);
+            frmDetalle_Cotizacion.txtPrecioUnitario.setText(prec);
 
             this.dispose();
 

@@ -4,6 +4,7 @@ import controller.ctrVehiculo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -33,19 +34,19 @@ public class mdlVehiculo {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color","Documento", "Nombres", "Apellidos", "email","Contacto"};
+        String[] titulos = {"IDvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color", "Propietario", "Documento", "Nombres", "Apellidos", "email", "Contacto"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[11];
+        String[] registro = new String[12];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT v.IDvehiculo,e.numero_documento,e.nombres,e.apellidos,e.email,e.contacto,"
-                + "e.direccion,v.placa,v.marca,v.linea,v.modelo,v.color FROM vehiculo v"
-                + " INNER JOIN propietario p ON v.idpropietario=p.IDpropietario INNER JOIN persona e ON p.IDpropietario=e.IDpersona"
+        sSQL = "SELECT v.IDvehiculo,v.idpropietario,v.placa,v.marca,v.linea,v.modelo,v.color,e.numero_documento,e.nombres,"
+                + "e.apellidos,e.email,e.contacto,e.direccion FROM vehiculo v INNER JOIN propietario p ON "
+                + "v.idpropietario=p.IDpropietario INNER JOIN persona e ON p.IDpropietario=e.IDpersona"
                 + " WHERE placa LIKE '%" + buscar + "%' ORDER BY IDvehiculo DESC";
 
         /* Capturador de errores */
@@ -61,12 +62,13 @@ public class mdlVehiculo {
                 registro[3] = rs.getString("linea");
                 registro[4] = rs.getString("modelo");
                 registro[5] = rs.getString("color");
-                registro[6] = rs.getString("numero_documento");
-                registro[7] = rs.getString("nombres");
-                registro[8] = rs.getString("apellidos");
-                registro[9] = rs.getString("email");
-                registro[10] = rs.getString("contacto");
-                
+                registro[6] = rs.getString("idpropietario");
+                registro[7] = rs.getString("numero_documento");
+                registro[8] = rs.getString("nombres");
+                registro[9] = rs.getString("apellidos");
+                registro[10] = rs.getString("email");
+                registro[11] = rs.getString("contacto");
+
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
 
@@ -86,9 +88,9 @@ public class mdlVehiculo {
      */
     public boolean insertar(ctrVehiculo fila) {
         /* instrucción SQL insertar para la tabla persona */
-       sSQL = "INSERT INTO vehiculo (idpropietario,placa,marca,linea,modelo,color) VALUES (?,?,?,?,?,?)";
+        sSQL = "INSERT INTO vehiculo (idpropietario,placa,marca,linea,modelo,color) VALUES (?,?,?,?,?,?)";
         try {
-            //REGISTROS SE OBTIENEN DE LA CLASE CTREMPLEADO DEL METODO GET
+            //REGISTROS SE OBTIENEN DE LA CLASE CTRVEHICULO DEL METODO GET
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setInt(1, fila.getIDpropietario());
@@ -101,13 +103,13 @@ public class mdlVehiculo {
             int n = pst.executeUpdate();
 
             if (n != 0) {
-                
-               return true;
-               
+
+                return true;
+
             } else {
-                
+
                 return false;
-                
+
             }
 
         } catch (Exception e) {
@@ -122,30 +124,39 @@ public class mdlVehiculo {
      */
     public boolean editar(ctrVehiculo fila) {
         /* instrucción SQL */
-       
-        sSQL = "UPDATE vehiculo SET placa=?,marca=?,linea=?,modelo=?,color=? WHERE IDvehiculo=?";
+        String validateSQL = "SELECT COUNT(1) FROM propietario WHERE IDpropietario=?";
+        sSQL = "UPDATE vehiculo SET idpropietario=?,placa=?,marca=?,linea=?,modelo=?,color=? WHERE IDvehiculo=?";
 
         /* Creamos el manejador de errores */
         try {
-
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+// Validar la existencia del propietario 
+            PreparedStatement validatePst = cn.prepareStatement(validateSQL);
+            validatePst.setInt(1, fila.getIDpropietario());
+            ResultSet rs = validatePst.executeQuery();
+            if (rs.next() && rs.getInt(1) == 0) {
+// El propietario no existe, lanzar una excepción o manejar el error 
+                throw new SQLException("El propietario con ID " + fila.getIDpropietario() + " no existe.");
+            }
             
-            pst.setString(1, fila.getPlaca());
-            pst.setString(2, fila.getMarca());
-            pst.setString(3, fila.getLinea());
-            pst.setString(4, fila.getModelo());
-            pst.setString(5, fila.getColor());
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, fila.getIDpropietario());
+            pst.setString(2, fila.getPlaca());
+            pst.setString(3, fila.getMarca());
+            pst.setString(4, fila.getLinea());
+            pst.setString(5, fila.getModelo());
+            pst.setString(6, fila.getColor());
+            pst.setInt(7, fila.getIDvehiculo());
 
             int n = pst.executeUpdate();
 
             if (n != 0) {
-                
-               return true;
-               
+
+                return true;
+
             } else {
-                
+
                 return false;
-                
+
             }
 
         } catch (Exception e) {
@@ -165,20 +176,19 @@ public class mdlVehiculo {
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            
 
             pst.setInt(1, fila.getIDvehiculo());
 
             int n = pst.executeUpdate();
 
             if (n != 0) {
-                
+
                 return true;
-                
+
             } else {
-                
+
                 return false;
-                
+
             }
 
         } catch (Exception e) {

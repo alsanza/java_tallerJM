@@ -27,7 +27,7 @@ public class mdlEmpleado {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID", "Tipo documento", "Número documento", "Nombres", "Apellidos", "Email", "Teléfono", "Dirección","municipio",
+        String[] titulos = {"ID", "Tipo documento", "Número documento", "Nombres", "Apellidos", "Email", "Teléfono", "Dirección", "municipio",
             "Estado", "IDempleado", "Cargo", "Sueldo", "Usuario", "password", "Fecha Registro"};
 
         /* array string para almacenar los registros de fila */
@@ -57,7 +57,7 @@ public class mdlEmpleado {
                 registro[5] = rs.getString("email");
                 registro[6] = rs.getString("contacto");
                 registro[7] = rs.getString("direccion");
-                 registro[8] = rs.getString("municipio");
+                registro[8] = rs.getString("municipio");
                 registro[9] = rs.getString("estado");
                 registro[10] = rs.getString("IDempleado");
                 registro[11] = rs.getString("cargo");
@@ -100,7 +100,6 @@ public class mdlEmpleado {
             pst.setString(8, dts.getMunicipio());
             pst.setInt(9, dts.getEstado());
 
-            //pst.setInt(8, dts.getEstado());
             pstp.setString(1, dts.getCargo());
             pstp.setDouble(2, dts.getSalario());
             pstp.setString(3, dts.getUsuario());
@@ -140,10 +139,10 @@ public class mdlEmpleado {
             while (rs.next()) {
                 respuesta = true;
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
-            
+
         }
         return respuesta;
     }
@@ -178,24 +177,18 @@ public class mdlEmpleado {
             pste.setInt(5, dts.getIDempleado());
 
             int n = pst.executeUpdate();
+            int nc = pste.executeUpdate();
+            
+            if (n != 0 && nc != 0) {
 
-            if (n != 0) {
-
-                int nc = pste.executeUpdate();
-
-                if (nc != 0) {
-
-                    return true;
-
-                } else {
-                    return false;
-                }
+                return true;
+                
             } else {
                 return false;
             }
 
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showConfirmDialog(null,"Error al editar:" + e.getMessage());
             return false;
         }
     }

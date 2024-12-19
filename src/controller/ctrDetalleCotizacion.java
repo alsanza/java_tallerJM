@@ -10,19 +10,21 @@ public class ctrDetalleCotizacion {
     private int IDdetalle_cotizacion;
     private int fk_IDcotizacion;
     private int fk_IDvalor_servicio_pieza;
-    private double porcentaje_daño;
-    private int cantidad;
-    private double total;
+    private double porcentaje_danio = 0.0;
+    private int cantidad = 0;
+    private double subTotal = 0.0;
+    private double total = 0.0;
 
     public ctrDetalleCotizacion() {
     }
 
-    public ctrDetalleCotizacion(int IDdetalle_cotizacion, int fk_IDcotizacion, int fk_IDvalor_servicio_pieza, double porcentaje_daño, int cantidad, double total) {
+    public ctrDetalleCotizacion(int IDdetalle_cotizacion, int fk_IDcotizacion, int fk_IDvalor_servicio_pieza, double porcentaje_danio, int cantidad, double subTotal, double total) {
         this.IDdetalle_cotizacion = IDdetalle_cotizacion;
         this.fk_IDcotizacion = fk_IDcotizacion;
         this.fk_IDvalor_servicio_pieza = fk_IDvalor_servicio_pieza;
-        this.porcentaje_daño = porcentaje_daño;
+        this.porcentaje_danio = porcentaje_danio;
         this.cantidad = cantidad;
+        this.subTotal = subTotal;
         this.total = total;
     }
 
@@ -50,12 +52,12 @@ public class ctrDetalleCotizacion {
         this.fk_IDvalor_servicio_pieza = fk_IDvalor_servicio_pieza;
     }
 
-    public double getPorcentaje_daño() {
-        return porcentaje_daño;
+    public double getPorcentaje_danio() {
+        return porcentaje_danio;
     }
 
-    public void setPorcentaje_daño(double porcentaje_daño) {
-        this.porcentaje_daño = porcentaje_daño;
+    public void setPorcentaje_danio(double porcentaje_danio) {
+        this.porcentaje_danio = porcentaje_danio;
     }
 
     public int getCantidad() {
@@ -66,6 +68,14 @@ public class ctrDetalleCotizacion {
         this.cantidad = cantidad;
     }
 
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
     public double getTotal() {
         return total;
     }
@@ -73,5 +83,6 @@ public class ctrDetalleCotizacion {
     public void setTotal(double total) {
         this.total = total;
     }
-    
+
+        
 }

@@ -5,6 +5,15 @@ buscamos la opcion que dice "IconImage" damos click en los tres puntos y selecci
 seleccionamos la opción que dice "Propiedad" damos en los tres puntos y "Form" "IconImage"
 Metodo de igreso usuario, se puede mejorar 
 
+MÓDULO USUARIOS
+Este módulo permite a los empleados autorizados por la empresa a loguearse en el sistema para realizar alguna actividad,
+ingresando sus credenciales. La tabla usuarios deriba o extiende de la tabla persona. Hay empleados que NO tiene acceso al sistema
+se crean como empleados pero NO se les asigna usuario ni contraseña, ya ellos No van a utilizar el sistema
+pre-requisito:
+   1. El usuario se debe crear como empleado de la compañía y se le asignará un usuario y una contraseña
+   2. El empleado debe estar en estado 1, que significa activo. Sí el empleado se encuentra en estado 0, significa inactivo
+Funcionalidad:
+El empleado tendrá acceso a algunas funcionalidades del sistema dependiendo de los permisos relacionados al rol de sus credenciales
 
 CREAR EL FORMULARIO PARA INGRESAR LOS VALORES PREDETERMINADOS DE LOS SERVICIOS
 para realizar esta acción tenemos la opción de diseñar en un combobox que traiga los datos de la base de datos y que cuando cambie
@@ -17,8 +26,10 @@ SELECT per.nombres,per.apellidos,v.placa,m.descripcion,l.descripcion,v.modelo,v.
 " ON v.idpropietario=p.IDpropietario INNER JOIN persona per ON p.IDpropietario = per.IDpersona INNER JOIN marca m ON" + 
 " v.fk_marca=m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea=l.IDlinea_vehiculo WHERE IDvehiculo=1";
 
+
 VEHICULOS
-Esta funcionalidad permite crear un vehículo en el sistema para luego ser gestionado
+
+Esta funcionalidad permite crear en la base de datos un vehículo para luego ser gestionado
 pre-requisito: el propietario debe estar creado en el sistema para poder obtener su ID y relacionarlo con el vehículo.
 en el formulario de propietarios, se encuentra una tabla con el registo de propietarios, seleccionamos el propietario que
 vamos a relacionar con el vehículo, y damos click en el boton "Agregar", se debe desplegar una ventana con el listado de 
@@ -30,16 +41,30 @@ propietario antes de continuar.
 Error de ejecución los atributos marca y linea esperan un IDmarca y IDlinea y el formulario esta enviando Strigs porque para 
 llenar los datos del combobox en el formulario de precio pieza
 
-COTIZACION
-Para este módulo en el campo Nro cotizacion, quiero:
-1.  que me traiga el último ID de la cotización anterior y que le incremente un dígito y lo muestre en el campo cotización nro.
-2. 
-se crea el vehículo, luego se van agregando las piezas, hay que crear primero el valor de los servicios
 
+MODULO COTIZACION
+
+Historia de usuario
+Cuándo un vehículo llegue al taller solicitando cotizar un arreglo, el jefe de patio debe realizar la respectiva cotización
+pre-requisito: 
+ 1. Debe haber un vehículo creado en la base de datos
+ 2. Debe existir una tabla en la base de datos que tenga los valores a cobrar por el arreglo de cada pieza o accesorio que
+    conforma un vehículo 
+Requisitos funcionales
+ 1. Para el módulo Datos de la cotización, al hacer click sobre el botón Nuevo, en el campo Nro cotizacion, el sistema debe traer
+    de la base de datos, el último ID de la cotización anterior y le debe incrementar un dígito y lo muestre en el campo cotización nro.
+ 2. Se establece la fecha de creación de la cotizacion y una fecha de vencimiento.
+ Datos del vehículo
+    3. En el bloque; datos del vehículo, damos click en el icono de buscar para que nos traiga el registro del vehículo que vamos
+       a afectar, lo seleccionamos y damos click en el botón guardar. Ya con la cotización creada en la tabla seleccionamos el
+       registro que acabamos de crear y damos click en el botón agragar detalle, se abre una nueva ventana que muestra la placa
+       del vehículo que no es editable,  con luego se van agregando las piezas, hay que crear primero el valor de los servicios
+
+METODO CARGAR COMBOBOX
 crear un método global que cargue todos los combos del sistema para mostrar la marca y la línea de los vehículo, y sobrecargar 
 en el constructor con los datos que va a mostrar 
 
 Cargar los comboBox de la aplicación con los datos que se encuentran guardados en la base de datos
 error de ejecucion "incompatible types: JComboBox<String> cannot be converted to JComboBox<ctrMarca>"
 Solución, damos click sobre el comboBox y nos vamos a propiedades, nos vamos a la pestaña codigo y cambiamos el tipo de <String>
-a <ctrMarca>
+a <ctrMarca> o al tipo de datos que solicite

@@ -155,5 +155,20 @@ public class mdlEmpleadoTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of registroDuplicado method, of class mdlEmpleado.
+     */
+    @Test
+    public void testRegistroDuplicado() {
+        System.out.println("registroDuplicado");
+        String usuario = "";
+        mdlEmpleado instance = new mdlEmpleado();
+        boolean expResult = false;
+        boolean result = instance.registroDuplicado(usuario);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
     
 }
