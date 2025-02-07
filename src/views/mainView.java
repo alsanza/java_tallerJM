@@ -8,6 +8,7 @@ package views;
 import forms.frmAyuda;
 import forms.frmCotizar;
 import forms.frmEmpleados;
+import forms.frmIngresoVehiculoTaller;
 import forms.frmInventarioVehiculo;
 import forms.frmMarca;
 import forms.frmOrdenTrabajo;
@@ -18,7 +19,6 @@ import forms.frmVehiculo;
 import forms.frmVehiculoTestMarca;
 import java.awt.Image;
 import java.awt.Toolkit;
-
 
 /**
  *
@@ -34,10 +34,10 @@ public class mainView extends javax.swing.JFrame {
         this.setExtendedState(mainView.MAXIMIZED_BOTH);
         this.setTitle("Sistema gestión talleres L&P");
     }
-    
+
     /* Metodo para cambiar el icono de la ventana.*/
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/car.png"));
         return retValue;
     }
@@ -58,18 +58,24 @@ public class mainView extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
+        adminMenu = new javax.swing.JMenu();
         mnuEmpleado = new javax.swing.JMenuItem();
         mnuPropietarios = new javax.swing.JMenuItem();
+        mnuClientes = new javax.swing.JMenuItem();
         mnuProveedores = new javax.swing.JMenuItem();
         accionesMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
         jmnMarcaVehiculo = new javax.swing.JMenuItem();
-        mnuItemProcesos = new javax.swing.JMenu();
+        mnuItemMaestros = new javax.swing.JMenu();
         mnuPreciosServicios = new javax.swing.JMenuItem();
         mnuItemCotizacion = new javax.swing.JMenuItem();
         mnuItemInventario = new javax.swing.JMenuItem();
+        mnuVentas = new javax.swing.JMenu();
+        mnuIteCotizacion = new javax.swing.JMenuItem();
+        mnuIngresoTaller = new javax.swing.JMenuItem();
+        mnuClientes1 = new javax.swing.JMenuItem();
+        mnuProveedores1 = new javax.swing.JMenuItem();
         mnuItemReportes = new javax.swing.JMenu();
         mnuPreciosServicios1 = new javax.swing.JMenuItem();
         mnuItemCotizacion1 = new javax.swing.JMenuItem();
@@ -81,7 +87,7 @@ public class mainView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
 
-        mainPane.setBackground(new java.awt.Color(102, 255, 102));
+        mainPane.setBackground(new java.awt.Color(255, 255, 255));
 
         fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
         fileMenu.setMnemonic('f');
@@ -112,9 +118,9 @@ public class mainView extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/providers.png"))); // NOI18N
-        editMenu.setMnemonic('e');
-        editMenu.setText("Administración");
+        adminMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/providers.png"))); // NOI18N
+        adminMenu.setMnemonic('e');
+        adminMenu.setText("Administración");
 
         mnuEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajadores.png"))); // NOI18N
         mnuEmpleado.setMnemonic('t');
@@ -129,7 +135,7 @@ public class mainView extends javax.swing.JFrame {
                 mnuEmpleadoActionPerformed(evt);
             }
         });
-        editMenu.add(mnuEmpleado);
+        adminMenu.add(mnuEmpleado);
 
         mnuPropietarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
         mnuPropietarios.setMnemonic('y');
@@ -139,7 +145,17 @@ public class mainView extends javax.swing.JFrame {
                 mnuPropietariosActionPerformed(evt);
             }
         });
-        editMenu.add(mnuPropietarios);
+        adminMenu.add(mnuPropietarios);
+
+        mnuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
+        mnuClientes.setMnemonic('y');
+        mnuClientes.setText("Clientes");
+        mnuClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuClientesActionPerformed(evt);
+            }
+        });
+        adminMenu.add(mnuClientes);
 
         mnuProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/proveedores.png"))); // NOI18N
         mnuProveedores.setMnemonic('p');
@@ -149,9 +165,9 @@ public class mainView extends javax.swing.JFrame {
                 mnuProveedoresActionPerformed(evt);
             }
         });
-        editMenu.add(mnuProveedores);
+        adminMenu.add(mnuProveedores);
 
-        menuBar.add(editMenu);
+        menuBar.add(adminMenu);
 
         accionesMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/car.png"))); // NOI18N
         accionesMenu.setMnemonic('h');
@@ -190,9 +206,9 @@ public class mainView extends javax.swing.JFrame {
 
         menuBar.add(accionesMenu);
 
-        mnuItemProcesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/working-time.png"))); // NOI18N
-        mnuItemProcesos.setMnemonic('h');
-        mnuItemProcesos.setText("Procesos");
+        mnuItemMaestros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/working-time.png"))); // NOI18N
+        mnuItemMaestros.setMnemonic('h');
+        mnuItemMaestros.setText("Maestros");
 
         mnuPreciosServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/money.png"))); // NOI18N
         mnuPreciosServicios.setText("Precios servicios");
@@ -201,7 +217,7 @@ public class mainView extends javax.swing.JFrame {
                 mnuPreciosServiciosActionPerformed(evt);
             }
         });
-        mnuItemProcesos.add(mnuPreciosServicios);
+        mnuItemMaestros.add(mnuPreciosServicios);
 
         mnuItemCotizacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         mnuItemCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/business-data.png"))); // NOI18N
@@ -212,7 +228,7 @@ public class mainView extends javax.swing.JFrame {
                 mnuItemCotizacionActionPerformed(evt);
             }
         });
-        mnuItemProcesos.add(mnuItemCotizacion);
+        mnuItemMaestros.add(mnuItemCotizacion);
 
         mnuItemInventario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         mnuItemInventario.setMnemonic('a');
@@ -222,9 +238,61 @@ public class mainView extends javax.swing.JFrame {
                 mnuItemInventarioActionPerformed(evt);
             }
         });
-        mnuItemProcesos.add(mnuItemInventario);
+        mnuItemMaestros.add(mnuItemInventario);
 
-        menuBar.add(mnuItemProcesos);
+        menuBar.add(mnuItemMaestros);
+
+        mnuVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/providers.png"))); // NOI18N
+        mnuVentas.setMnemonic('e');
+        mnuVentas.setText("Ventas");
+
+        mnuIteCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajadores.png"))); // NOI18N
+        mnuIteCotizacion.setMnemonic('t');
+        mnuIteCotizacion.setText("Cotización");
+        mnuIteCotizacion.setActionCommand("Cotización");
+        mnuIteCotizacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuIteCotizacionMouseClicked(evt);
+            }
+        });
+        mnuIteCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuIteCotizacionActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mnuIteCotizacion);
+
+        mnuIngresoTaller.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
+        mnuIngresoTaller.setMnemonic('y');
+        mnuIngresoTaller.setText("Ingreso vehículo taller");
+        mnuIngresoTaller.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuIngresoTallerActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mnuIngresoTaller);
+
+        mnuClientes1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
+        mnuClientes1.setMnemonic('y');
+        mnuClientes1.setText("Clientes");
+        mnuClientes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuClientes1ActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mnuClientes1);
+
+        mnuProveedores1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/proveedores.png"))); // NOI18N
+        mnuProveedores1.setMnemonic('p');
+        mnuProveedores1.setText("Proveedores");
+        mnuProveedores1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuProveedores1ActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mnuProveedores1);
+
+        menuBar.add(mnuVentas);
 
         mnuItemReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/analytics.png"))); // NOI18N
         mnuItemReportes.setMnemonic('h');
@@ -317,7 +385,7 @@ public class mainView extends javax.swing.JFrame {
 
     private void mnuEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEmpleadoActionPerformed
         // TODO add your handling code here:
-       frmEmpleados form = new frmEmpleados();
+        frmEmpleados form = new frmEmpleados();
         mainPane.add(form);
         form.toFront();
         form.setVisible(true);
@@ -377,10 +445,7 @@ public class mainView extends javax.swing.JFrame {
 
     private void mnuItemCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemCotizacionActionPerformed
         // TODO add your handling code here:
-        frmCotizar form = new frmCotizar();
-        mainPane.add(form);
-        form.toFront();
-        form.setVisible(true);
+
     }//GEN-LAST:event_mnuItemCotizacionActionPerformed
 
     private void mnuProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProveedoresActionPerformed
@@ -410,6 +475,39 @@ public class mainView extends javax.swing.JFrame {
     private void mnuItemInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemInventario1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnuItemInventario1ActionPerformed
+
+    private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuClientesActionPerformed
+
+    private void mnuIteCotizacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuIteCotizacionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuIteCotizacionMouseClicked
+
+    private void mnuIteCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuIteCotizacionActionPerformed
+        // TODO add your handling code here:
+        frmCotizar form = new frmCotizar();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+
+    }//GEN-LAST:event_mnuIteCotizacionActionPerformed
+
+    private void mnuIngresoTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuIngresoTallerActionPerformed
+        // TODO add your handling code here:
+        frmIngresoVehiculoTaller form = new frmIngresoVehiculoTaller();
+        mainPane.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_mnuIngresoTallerActionPerformed
+
+    private void mnuClientes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientes1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuClientes1ActionPerformed
+
+    private void mnuProveedores1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProveedores1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuProveedores1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -450,26 +548,32 @@ public class mainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem aboutMenuItem2;
     private javax.swing.JMenu accionesMenu;
+    private javax.swing.JMenu adminMenu;
     private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem jmnMarcaVehiculo;
     public static javax.swing.JDesktopPane mainPane;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mnuClientes;
+    private javax.swing.JMenuItem mnuClientes1;
     private javax.swing.JMenuItem mnuEmpleado;
+    private javax.swing.JMenuItem mnuIngresoTaller;
+    private javax.swing.JMenuItem mnuIteCotizacion;
     private javax.swing.JMenuItem mnuItemContenido;
     private javax.swing.JMenuItem mnuItemCotizacion;
     private javax.swing.JMenuItem mnuItemCotizacion1;
     private javax.swing.JMenuItem mnuItemInventario;
     private javax.swing.JMenuItem mnuItemInventario1;
-    private javax.swing.JMenu mnuItemProcesos;
+    private javax.swing.JMenu mnuItemMaestros;
     private javax.swing.JMenu mnuItemReportes;
     private javax.swing.JMenuItem mnuPreciosServicios;
     private javax.swing.JMenuItem mnuPreciosServicios1;
     private javax.swing.JMenuItem mnuPropietarios;
     private javax.swing.JMenuItem mnuProveedores;
+    private javax.swing.JMenuItem mnuProveedores1;
+    private javax.swing.JMenu mnuVentas;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;

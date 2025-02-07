@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-12-2024 a las 04:53:24
+-- Tiempo de generación: 27-12-2024 a las 20:48:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -41,9 +41,9 @@ CREATE TABLE `cliente` (
 CREATE TABLE `cotizacion` (
   `IDcotizacion` int(11) NOT NULL,
   `cotizacion_nro` int(11) NOT NULL,
-  `fecha_cotizacion` datetime NOT NULL,
+  `fecha_cotizacion` date NOT NULL,
   `id_vehiculo` int(11) NOT NULL,
-  `fecha_vencimiento` datetime NOT NULL
+  `fecha_vencimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -51,8 +51,7 @@ CREATE TABLE `cotizacion` (
 --
 
 INSERT INTO `cotizacion` (`IDcotizacion`, `cotizacion_nro`, `fecha_cotizacion`, `id_vehiculo`, `fecha_vencimiento`) VALUES
-(1, 1, '2024-12-05 16:36:31', 1, '2024-12-10 14:03:23'),
-(2, 2, '2024-12-05 00:00:00', 3, '2024-12-13 00:00:00');
+(1, 1, '2024-12-27', 1, '2025-01-06');
 
 -- --------------------------------------------------------
 
@@ -64,11 +63,19 @@ CREATE TABLE `detalle_cotizacion` (
   `IDdetalle_cotizacion` int(11) NOT NULL,
   `fk_Id_cotizacion` int(11) NOT NULL,
   `fk_Id_valor_servicio_pieza` int(11) NOT NULL,
-  `porcentaje_daño` double(6,2) NOT NULL,
+  `porcentaje_danio` double(6,2) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `sub_total` double NOT NULL,
   `total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_cotizacion`
+--
+
+INSERT INTO `detalle_cotizacion` (`IDdetalle_cotizacion`, `fk_Id_cotizacion`, `fk_Id_valor_servicio_pieza`, `porcentaje_danio`, `cantidad`, `sub_total`, `total`) VALUES
+(1, 1, 5, 100.00, 1, 0, 0),
+(2, 1, 5, 100.00, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -89,8 +96,9 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`IDempleado`, `cargo`, `salario`, `usuario`, `password`) VALUES
-(12, 'Administrador', 1600000, 'juanc', 'juanc1234'),
-(13, 'Recepcionista', 1600000, 'jandres', 'jandres123');
+(1, 'Administrador', 3200000, 'admin', 'admin123'),
+(3, 'Gerente', 3200000, 'nano', 'nano123'),
+(5, 'Secretaria', 1800000, 'dmaria', 'dmaria123');
 
 -- --------------------------------------------------------
 
@@ -213,6 +221,7 @@ CREATE TABLE `persona` (
   `email` varchar(45) NOT NULL,
   `contacto` varchar(15) NOT NULL,
   `direccion` varchar(45) NOT NULL,
+  `municipio` varchar(100) NOT NULL,
   `estado` int(11) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -221,29 +230,13 @@ CREATE TABLE `persona` (
 -- Volcado de datos para la tabla `persona`
 --
 
-INSERT INTO `persona` (`IDpersona`, `tipo_documento`, `numero_documento`, `nombres`, `apellidos`, `email`, `contacto`, `direccion`, `estado`, `fecha_registro`) VALUES
-(7, 'Cédula ciudadanía', '43848385', 'Diana María', 'Celis Ospina', 'diana.celis@hotmail.com', '316679010', 'Carrera 80 # 49 - 50', 1, '2024-10-31 16:15:14'),
-(9, 'Cédula ciudadanía', '98530328', 'Carlos Rene', 'García Correa', 'rene@hotmail.com', '300246974', 'Calle 48 # 107 - 45', 1, '2024-10-31 16:20:11'),
-(10, 'Cédula ciudadanía', '1021930524', 'Danna Sofia', 'Sánchez Celis', 'danna@hotmail.com', '3002587469', 'Calle 123 # 45 - 26', 1, '2024-10-31 16:25:02'),
-(11, 'Cédula ciudadanía', '70810536', 'Luis Carlos', 'Ríos Perez', 'luis@hotmail.com', '3057106369', 'Calle 98 # 70 - 106', 1, '2024-10-31 16:49:07'),
-(12, 'Seleccione un opción', '70510189', 'Juan Carlos', 'Posada López', 'juanc@gmail.com', '30045987845', 'Carrera 65 # 25 - 16', 1, '2024-11-01 17:40:59'),
-(13, 'Cédula ciudadanía', '1021930524', 'Julian Andrés', 'Otalvaro Gutierrez', 'juano@hotmail.com', '3176679010', 'Carrera 81 # 49 - 54', 1, '2024-11-01 20:36:07'),
-(14, 'Seleccione un opción', '48530562', 'Carlos Mauricio', 'Sánchez Zapata', 'mauro@gmail.com', '3165667696', 'Calle 107 # 87 - 241', 1, '2024-11-01 20:47:01'),
-(15, 'Seleccione un opción', '70120356', 'Carlos Mauricio', 'Sánchez Zapata', 'cmauricio@gmail.com', '3152473656', 'Calle 107 # 87 - 241', 1, '2024-11-01 20:51:53'),
-(16, 'Seleccione una opción', '32507701', 'Miguel Angel', 'Zapata Alavarez', 'migue@hotmail.com', '3016328574', 'Vereda el Tonusco', 1, '2024-11-01 21:10:25'),
-(17, 'Cédula ciudadanía', '98617630', 'Hector Dario', 'Calle Molina', 'hector@hotmail.com', '3006175487', 'Calle 34 # 80 - 36', 1, '2024-11-04 17:25:02'),
-(18, 'Cédula ciudadanía', '10121910256', 'Pablo Andrés', 'Molina Vazquez', 'pablo@hotmail.com', '3125874769', 'Calle 107 # 43 - 16', 1, '2024-11-04 17:46:59'),
-(19, 'Cédula ciudadanía', '65465465', 'fsdfsdfs', 'adfdsfsdfdfadsfsdadfdsf', 'dfdsfasd', '242542424', 'fasdfdsfsdaf', 1, '2024-11-04 18:02:22'),
-(20, 'Cédula ciudadanía', 'Chevrolett', 'NPR', '2012', 'Blanco', '3526947448', 'Calle 107', 1, '2024-11-04 21:36:07'),
-(21, 'Cédula ciudadanía', '98258147', 'Juan Carlos', 'Areiza Zapata', 'juanc@hotmail.com', '3001592648', 'calle 84', 1, '2024-11-04 21:54:16'),
-(22, 'Cédula ciudadanía', '1025478693', 'Luis Carlos', 'Arcila Díaz', 'luisca@hotmail.com', '3002694785', 'Calle 25', 1, '2024-11-04 23:45:58'),
-(23, 'Cédula ciudadanía', '1025478693', 'Luis Carlos', 'Arcila Díaz', 'luisca@hotmail.com', '3002694785', 'Calle 25', 1, '2024-11-04 23:47:31'),
-(24, 'Cédula ciudadanía', '71758469', 'Gustavo Adolfo', 'Ríos Palacio', 'tavo@gmail.com', '3006352987', 'carrera 65 # 98 - 75', 1, '2024-11-04 23:51:10'),
-(25, 'Cédula ciudadanía', '36508253', 'Jorge Eliecer', 'Rodriguez Zapata', 'maecha@hotmail.com', '3121023648', 'Carrera 36 # 123 - 15', 1, '2024-11-05 00:14:44'),
-(26, '', '', '', '', '', '', '', 1, '2024-12-06 00:58:51'),
-(27, '', '', '', '', '', '', '', 1, '2024-12-06 01:01:15'),
-(28, 'Cédula ciudadanía', '10636987', 'Paulina Alejandra', 'Muñoz Marín', 'paulina@hotmail.com', '300 3665798', 'Calle 36 # 98 - 77', 1, '2024-12-06 17:35:52'),
-(29, 'Cédula ciudadanía', '43874526', 'Gloria María', 'Delgado Montes', 'gloria184@gmail.com', '3114112678', 'Carrera 65 # 107 - 83', 1, '2024-12-06 17:47:49');
+INSERT INTO `persona` (`IDpersona`, `tipo_documento`, `numero_documento`, `nombres`, `apellidos`, `email`, `contacto`, `direccion`, `municipio`, `estado`, `fecha_registro`) VALUES
+(1, 'Cédula ciudadanía', '71766392', 'Alejandro', 'Sánchez Zapata', 'alsan@hotmail.com', '3045796963', 'Calle 61A # 123C - 15', 'Medellín', 1, '2024-12-27 19:19:21'),
+(2, 'Cédula ciudadanía', '70280115', 'Pedro Nel', 'Ospina Flores', 'pnel@hotmail.com', '3017458963', 'Calle 35 # 82 - 23', 'Medellín', 1, '2024-12-27 19:22:27'),
+(3, 'Cédula ciudadanía', '71766359', 'Carlos Mauricio', 'Sánchez Zapata', 'mauro@gmail.com', '3006778754', 'Calle 107 # 87 - 241', 'Medellín', 1, '2024-12-27 19:25:29'),
+(4, 'Cédula extranjería', '297548', 'Ruben Dario', 'Perez Villa', 'rvilla@hotmail.com', '3004671234', 'Calle 98 # 71 - 21', 'Medellín', 1, '2024-12-27 19:29:19'),
+(5, 'Cédula ciudadanía', '43848385', 'Diana María', 'Celis Ospina', 'dmariac@gmail.com', '3195779652', 'Calle 61A # 123 - 15', 'Medellín', 1, '2024-12-27 19:30:40'),
+(6, 'Cédula ciudadanía', '70278456', 'Juan Andrés', 'Molina Rojas', 'jandres@gmail.com', '3004879789', 'Carrera 65 # 2Sur - 24', 'Medellín', 1, '2024-12-27 19:37:17');
 
 -- --------------------------------------------------------
 
@@ -272,24 +265,18 @@ INSERT INTO `pieza_vehiculo` (`IDpieza_vehiculo`, `IDvehiculo`, `descripcion`) V
 --
 
 CREATE TABLE `propietario` (
-  `IDpropietario` int(11) NOT NULL
+  `IDpropietario` int(11) NOT NULL,
+  `cod_propietario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `propietario`
 --
 
-INSERT INTO `propietario` (`IDpropietario`) VALUES
-(15),
-(16),
-(17),
-(18),
-(21),
-(25),
-(26),
-(27),
-(28),
-(29);
+INSERT INTO `propietario` (`IDpropietario`, `cod_propietario`) VALUES
+(2, 2),
+(4, 4),
+(6, 6);
 
 -- --------------------------------------------------------
 
@@ -372,8 +359,8 @@ CREATE TABLE `vehiculo` (
   `IDvehiculo` int(11) NOT NULL,
   `idpropietario` int(11) NOT NULL,
   `placa` varchar(6) NOT NULL,
-  `fk_marca` int(11) NOT NULL,
-  `fk_linea` int(11) NOT NULL,
+  `marca` varchar(100) NOT NULL,
+  `linea` varchar(100) NOT NULL,
   `modelo` varchar(4) NOT NULL,
   `color` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -382,10 +369,8 @@ CREATE TABLE `vehiculo` (
 -- Volcado de datos para la tabla `vehiculo`
 --
 
-INSERT INTO `vehiculo` (`IDvehiculo`, `idpropietario`, `placa`, `fk_marca`, `fk_linea`, `modelo`, `color`) VALUES
-(1, 21, 'WCP193', 2, 10, '2019', 'Gris'),
-(2, 21, 'NGL259', 1, 3, '2021', 'Azúl'),
-(3, 25, 'GPO265', 4, 25, '2018', 'Blanco');
+INSERT INTO `vehiculo` (`IDvehiculo`, `idpropietario`, `placa`, `marca`, `linea`, `modelo`, `color`) VALUES
+(1, 4, 'SPO753', 'Chevrolet', 'Traker', '2017', 'GRIS');
 
 -- --------------------------------------------------------
 
@@ -505,9 +490,7 @@ ALTER TABLE `valor_servicio_pieza`
 --
 ALTER TABLE `vehiculo`
   ADD PRIMARY KEY (`IDvehiculo`),
-  ADD KEY `idpropietario` (`idpropietario`),
-  ADD KEY `fk_marca_vehiculo` (`fk_marca`),
-  ADD KEY `fk_linea` (`fk_linea`);
+  ADD KEY `idpropietario` (`idpropietario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -517,13 +500,13 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT de la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
-  MODIFY `IDcotizacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDcotizacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_cotizacion`
 --
 ALTER TABLE `detalle_cotizacion`
-  MODIFY `IDdetalle_cotizacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDdetalle_cotizacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `linea_vehiculo`
@@ -553,7 +536,7 @@ ALTER TABLE `orden_trabajo_empleado`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `IDpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `IDpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `pieza_vehiculo`
@@ -583,7 +566,7 @@ ALTER TABLE `valor_servicio_pieza`
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  MODIFY `IDvehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IDvehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -649,8 +632,6 @@ ALTER TABLE `propietario`
 -- Filtros para la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  ADD CONSTRAINT `fk_linea` FOREIGN KEY (`fk_linea`) REFERENCES `linea_vehiculo` (`IDlinea_vehiculo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_marca_vehiculo` FOREIGN KEY (`fk_marca`) REFERENCES `marca` (`IDmarca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`idpropietario`) REFERENCES `propietario` (`IDpropietario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 

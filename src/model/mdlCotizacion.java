@@ -33,17 +33,17 @@ public class mdlCotizacion {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID", "Cotizacón Nro.", "Fecha", "Placa", "Marca", "Linea", "Módelo", "Color","Fecha vencimiento"};
+        String[] titulos = {"ID", "Cotizacón Nro.", "Fecha","idvehiculo", "Placa", "Marca", "Linea", "Módelo", "Color","Fecha vencimiento"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[9];
+        String[] registro = new String[10];
 
         totalregistros = 0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT c.IDcotizacion,c.cotizacion_nro,c.fecha_cotizacion,v.placa,v.marca,v.linea,v.modelo,v.color,"
+        sSQL = "SELECT c.IDcotizacion,c.cotizacion_nro,c.fecha_cotizacion,v.IDvehiculo,v.placa,v.marca,v.linea,v.modelo,v.color,"
                 + "c.fecha_vencimiento FROM cotizacion c INNER JOIN vehiculo v ON c.id_vehiculo=v.IDvehiculo WHERE"
                 + " cotizacion_nro LIKE '%" + buscar + "%' ORDER BY cotizacion_nro ASC";
 
@@ -57,12 +57,13 @@ public class mdlCotizacion {
                 registro[0] = rs.getString("IDcotizacion");
                 registro[1] = rs.getString("cotizacion_nro");
                 registro[2] = rs.getString("fecha_cotizacion");
-                registro[3] = rs.getString("placa");
-                registro[4] = rs.getString("marca");
-                registro[5] = rs.getString("linea");
-                registro[6] = rs.getString("modelo");
-                registro[7] = rs.getString("color");
-                registro[8] = rs.getString("fecha_vencimiento");
+                registro[3] = rs.getString("IDvehiculo");
+                registro[4] = rs.getString("placa");
+                registro[5] = rs.getString("marca");
+                registro[6] = rs.getString("linea");
+                registro[7] = rs.getString("modelo");
+                registro[8] = rs.getString("color");
+                registro[9] = rs.getString("fecha_vencimiento");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -85,7 +86,7 @@ public class mdlCotizacion {
         sSQL = "INSERT INTO cotizacion (cotizacion_nro,fecha_cotizacion,id_vehiculo,fecha_vencimiento)"
                 + "VALUES (?,?,?,?)";
         try {
-            //REGISTROS SE OBTIENEN DE LA CLASE CTREMPLEADO DEL METODO GET
+            //REGISTROS SE OBTIENEN DE LA CLASE CTRCOTIZACION DEL METODO GET
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setInt(1, dts.getCotizacion_nro());
@@ -130,6 +131,8 @@ public class mdlCotizacion {
             pst.setDate(2, dts.getFecha_cotizacion());
             pst.setInt(3, dts.getId_vehiculo());
             pst.setDate(4, dts.getFecha_vencimiento());
+            
+            pst.setInt(5, dts.getIDcotizacion());
 
             int n = pst.executeUpdate();
 
@@ -144,7 +147,7 @@ public class mdlCotizacion {
             }
 
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showConfirmDialog(null,"Error al editar:" + e.getMessage());
             return false;
         }
     }

@@ -6,12 +6,14 @@ package controller;
  */
 public class ctrPropietario extends ctrPersona {
     private int IDpropietario;
+    private int cod_propietario = 0;
 
     public ctrPropietario() {
     }
 
-    public ctrPropietario(int IDpropietario) {
+    public ctrPropietario(int IDpropietario, int cod_propietario) {
         this.IDpropietario = IDpropietario;
+        this.cod_propietario = cod_propietario;
     }
 
     public int getIDpropietario() {
@@ -20,6 +22,14 @@ public class ctrPropietario extends ctrPersona {
 
     public void setIDpropietario(int IDpropietario) {
         this.IDpropietario = IDpropietario;
+    }
+
+    public int getCod_propietario() {
+        return cod_propietario;
+    }
+
+    public void setCod_propietario(int cod_propietario) {
+        this.cod_propietario = cod_propietario;
     }
     
 }

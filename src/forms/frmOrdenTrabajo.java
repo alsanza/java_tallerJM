@@ -41,7 +41,7 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
 
         txtNrocotizacion.setEnabled(false);
         dtcFechaCotizacion.setEnabled(false);
-        jdcFechaVencimiento.setEnabled(false);
+        
 
         txtPlaca.setEnabled(false);
         txtMarca.setEnabled(false);
@@ -67,7 +67,6 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
         
         txtNrocotizacion.setEnabled(false);
         dtcFechaCotizacion.setEnabled(true);
-        jdcFechaVencimiento.setEnabled(true);
 
         txtPlaca.setEnabled(false);
         txtMarca.setEnabled(false);
@@ -117,9 +116,11 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
         jLabel32 = new javax.swing.JLabel();
         txtNrocotizacion = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        jdcFechaVencimiento = new com.toedter.calendar.JDateChooser();
         dtcFechaCotizacion = new com.toedter.calendar.JDateChooser();
         txtIdCotizacion = new javax.swing.JTextField();
+        txtIDcotizacion = new javax.swing.JTextField();
+        txtCotizacionNro = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtPlaca = new javax.swing.JTextField();
@@ -166,14 +167,17 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
         setName("empleados"); // NOI18N
 
         borderPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        borderPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la cotización", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jLabel30.setText("Fecha:");
 
-        jLabel32.setText("Fecha vencimiento:");
+        jLabel32.setText("Cotización Nro.");
 
-        jLabel37.setText("Cotización Nro:");
+        jLabel37.setText("Orden Nro:");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -191,13 +195,18 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel32)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dtcFechaCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .addComponent(jdcFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dtcFechaCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(txtNrocotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(384, 384, 384))
+                        .addComponent(txtIdCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtIDcotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCotizacionNro)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(346, 346, 346))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,11 +221,13 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel30)
                     .addComponent(dtcFechaCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jdcFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(txtIDcotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCotizacionNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del vehículo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -304,10 +315,11 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel11)
                         .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        borderPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle cotización"));
+        borderPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        borderPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setText("Seleccione pieza:");
 
@@ -614,7 +626,7 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
         /*
         * Guardar formato de fechas
         */
-        Calendar cal;
+        /*Calendar cal;
         int d,m,a;
         cal=dtcFechaCotizacion.getCalendar();
         d=cal.get(Calendar.DAY_OF_MONTH);
@@ -624,12 +636,6 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
         
         dts.setId_vehiculo(Integer.parseInt(txtIdVehiculo.getText()));
         
-        cal=jdcFechaVencimiento.getCalendar();
-        d=cal.get(Calendar.DAY_OF_MONTH);
-        m=cal.get(Calendar.MONTH);
-        a=cal.get(Calendar.YEAR) - 1900;
-        dts.setFecha_vencimiento(new Date(a,m,d));
-
         /* PREGUNTAMOS QUE ACCION VAMOS A EJECUTAR */
         if (accion.equals("guardar")) {
 
@@ -683,16 +689,16 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
         form.setVisible(true);
     }//GEN-LAST:event_btnAbrirPreciosActionPerformed
 
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
+
     private void btnAbrirVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirVehiculoActionPerformed
         // TODO add your handling code here:
         frmVistaVehiculo form = new frmVistaVehiculo();
         form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_btnAbrirVehiculoActionPerformed
-
-    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSubTotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -767,27 +773,29 @@ public class frmOrdenTrabajo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jdcFechaVencimiento;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblTotalregistros;
     private javax.swing.JTable tblListados;
     private javax.swing.JTextField txtBuscar;
-    public static javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtCotizacionNro;
     public static javax.swing.JTextField txtDescripcionPieza;
     public static javax.swing.JTextField txtDescripcionTrabajo;
+    private javax.swing.JTextField txtIDcotizacion;
     private javax.swing.JTextField txtIdCotizacion;
-    public static javax.swing.JTextField txtIdVehiculo;
-    public static javax.swing.JTextField txtLinea;
-    public static javax.swing.JTextField txtMarca;
-    public static javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtIdVehiculo;
+    private javax.swing.JTextField txtLinea;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNrocotizacion;
-    public static javax.swing.JTextField txtPlaca;
+    private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPorcentajeDaño;
     public static javax.swing.JTextField txtPrecioUnitario;
     private javax.swing.JTextField txtSubTotal;

@@ -21,7 +21,7 @@ public class mdlPrecioPorPieza {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID", "Marca", "Línea", "Módelo", "Pieza", "Servicio", "Valor", "Fecha registro"};
+        String[] titulos = {"ID", "MARCA", "LÍNEA", "MÓDELO", "PIEZA", "SERVICIO", "VALOR", "FECHA REGISTRO"};
 
         /* array string para almacenar los registros de fila */
         String[] registro = new String[8];

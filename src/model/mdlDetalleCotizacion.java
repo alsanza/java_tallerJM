@@ -15,6 +15,13 @@ public class mdlDetalleCotizacion {
     private Connection cn = mysql.conectar();
     private String sSQL = "";// variable que almacena la instrucción SQL
     public Integer totalregistros;
+    public Integer cantidad;
+    public Double valormanoobra;
+    public Double valormateriales;
+    public Integer valorrepuestos;
+    public Double subtotal;
+    public Integer iva;
+    public Double valoriva;
     public Double totalcotizacion;
 
     /* Segundo función para mostrar los registros de las tabla empleado */
@@ -22,21 +29,30 @@ public class mdlDetalleCotizacion {
         DefaultTableModel modelo;
 
         /* array string para almacenar los titulos columna de las dos tablas */
-        String[] titulos = {"ID","IDcotizacion","Cotización Nro.","Placa","Detalle", "Procedimiento", "Valor", "Porcentaje daño", "cantiad"};
+        String[] titulos = {"ID", "IDcotizacion", "Cotización Nro.", "IDvehiculo", "Placa", "Detalle", "Procedimiento", "Valor", "Porcentaje daño", "cantiad", "Sub total"};
 
         /* array string para almacenar los registros de fila */
-        String[] registro = new String[10];
+        String[] registro = new String[11];
 
         totalregistros = 0;
+        valormanoobra = 0.0;
+        cantidad = 0;
+        valormateriales = 0.0;
+        valorrepuestos = 0;
+        subtotal = 0.0;
+        iva = 0;
+        valoriva = 0.0;
         totalcotizacion = 0.0;
 
         modelo = new DefaultTableModel(null, titulos);
 
         /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
-        sSQL = "SELECT d.fk_Id_cotizacion,c.cotizacion_nro,d.IDdetalle_cotizacion,v.placa,s.pieza,s.servicio,s.valor,d.porcentaje_danio,d.cantidad"
-                + " FROM detalle_cotizacion d INNER JOIN cotizacion c ON d.fk_id_cotizacion = c.IDcotizacion "
-                + "INNER JOIN valor_servicio_pieza s ON d.fk_Id_valor_servicio_pieza = s.IDvalor INNER JOIN vehiculo v ON c.id_vehiculo = v.IDvehiculo "
-                + "WHERE c.cotizacion_nro LIKE '%" + buscar + "%' ORDER BY d.fk_id_cotizacion ASC";
+        sSQL = "SELECT d.IDdetalle_cotizacion, d.fk_Id_cotizacion, c.IDcotizacion,v.IDvehiculo as IDVehiculo,"
+                + "v.placa as placaVehiculo,vsp.pieza as nombrepieza, vsp.servicio as serviciopieza, vsp.valor as valorpieza,"
+                + "d.porcentaje_danio, d.cantidad, d.sub_total FROM detalle_cotizacion d INNER JOIN cotizacion c "
+                + "ON d.fk_Id_cotizacion = c.IDcotizacion LEFT JOIN vehiculo v ON v.IDvehiculo = d.fk_Id_cotizacion LEFT JOIN "
+                + "valor_servicio_pieza vsp ON vsp.IDvalor = d.fk_Id_valor_servicio_pieza "
+                + "WHERE c.IDcotizacion = " + buscar + " ORDER BY d.IDdetalle_cotizacion ASC";
 
         /* Capturador de errores */
         try {
@@ -47,17 +63,26 @@ public class mdlDetalleCotizacion {
             while (rs.next()) {
                 registro[0] = rs.getString("IDdetalle_cotizacion");
                 registro[1] = rs.getString("fk_Id_cotizacion");
-                registro[2] = rs.getString("cotizacion_nro");
-                registro[3] = rs.getString("placa");
-                registro[4] = rs.getString("pieza");
-                registro[5] = rs.getString("servicio");
-                registro[6] = rs.getString("valor");
-                registro[7] = rs.getString("porcentaje_danio");
-                registro[8] = rs.getString("cantidad");
-                registro[9] = rs.getString("pieza");
+                registro[2] = rs.getString("IDcotizacion");
+                registro[3] = rs.getString("IDVehiculo");
+                registro[4] = rs.getString("placaVehiculo");
+                registro[5] = rs.getString("nombrepieza");
+                registro[6] = rs.getString("serviciopieza");
+                registro[7] = rs.getString("valorpieza");
+                registro[8] = rs.getString("porcentaje_danio");
+                registro[9] = rs.getString("cantidad");
+                registro[10] = rs.getString("sub_total");
 
                 totalregistros = totalregistros + 1;
-                totalcotizacion = totalcotizacion + (rs.getInt("cantidad") * rs.getDouble("valor"));
+                valormanoobra = valormanoobra + (rs.getDouble("valorpieza") * rs.getDouble("porcentaje_danio") / 100);
+                valormateriales = valormateriales + (rs.getDouble("valorpieza") * rs.getDouble("porcentaje_danio") / 100);
+                valorrepuestos = valorrepuestos;
+                subtotal = subtotal + (valormanoobra + valormateriales + valorrepuestos);
+                valoriva = valoriva + ((subtotal * iva) / 100);
+                //totalcotizacion = totalcotizacion + ((rs.getDouble("valorpieza") * rs.getDouble("porcentaje_danio")/100) * rs.getInt("cantidad") );
+                totalcotizacion = totalcotizacion + (subtotal + valoriva);
+
+                this.CalcularIva(subtotal, iva);
                 modelo.addRow(registro);
 
             }
@@ -163,5 +188,27 @@ public class mdlDetalleCotizacion {
             JOptionPane.showConfirmDialog(null, e);
             return false;
         }
+    }
+
+    /* METODO PARA CALCULAR EL IVA */
+    private double CalcularIva(Double subtotal, int iva) {
+        int p_iva = iva;
+
+        //p_iva = valoriva = (subtotal * 0.19);
+        switch (p_iva) {
+
+            case 0:
+                valoriva = 0.0;
+                break;
+
+            case 19:
+                valoriva = (subtotal * cantidad) * 0.19;
+                break;
+
+            default:
+                break;
+        }
+
+        return valoriva;
     }
 }

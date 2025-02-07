@@ -29,19 +29,20 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
         tblListadoVehiculos.getColumnModel().getColumn(0).setMinWidth(0);
         tblListadoVehiculos.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
-    
-    void mostrar(String buscar){
+
+    void mostrar(String buscar) {
         try {
             DefaultTableModel modelo;
             //Inicializo el modelo de vehículo para acceder a la función mostrar
             mdlVehiculo func = new mdlVehiculo();
             modelo = func.mostrar(buscar);
-            
+
             // agregamos el modelo a la tabla tblListadoVehiculos
             tblListadoVehiculos.setModel(modelo);
+            tblListadoVehiculos.setRowHeight(30);
             ocultar_columnas();
             lblTotalRegistros.setText("Total Registros " + Integer.toString(func.totalregistros));
-            
+
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(rootPane, e);
         }
@@ -194,23 +195,23 @@ public class frmVistaVehiculo extends javax.swing.JFrame {
             String colo;
 
             idV = tblListadoVehiculos.getValueAt(fila, 0).toString();
-            pla = tblListadoVehiculos.getValueAt(fila, 1).toString();
-            mar = tblListadoVehiculos.getValueAt(fila, 2).toString();
-            lin = tblListadoVehiculos.getValueAt(fila, 3).toString();
-            mod = tblListadoVehiculos.getValueAt(fila, 4).toString();
-            colo = tblListadoVehiculos.getValueAt(fila, 5).toString();
-            
+            pla = tblListadoVehiculos.getValueAt(fila, 3).toString();
+            mar = tblListadoVehiculos.getValueAt(fila, 4).toString();
+            lin = tblListadoVehiculos.getValueAt(fila, 5).toString();
+            mod = tblListadoVehiculos.getValueAt(fila, 6).toString();
+            colo = tblListadoVehiculos.getValueAt(fila, 7).toString();
+
             /*
             * Para poder accedar estas variables desde otro formulario, debo modificar las variables del otro
             * formulario y colocarlas públicas y estaticas
-            */
+             */
             frmCotizar.txtIdVehiculo.setText(idV);
             frmCotizar.txtPlaca.setText(pla);
             frmCotizar.txtMarca.setText(mar);
             frmCotizar.txtLinea.setText(lin);
             frmCotizar.txtModelo.setText(mod);
             frmCotizar.txtColor.setText(colo);
-            
+
             this.dispose();
 
         }

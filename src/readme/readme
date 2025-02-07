@@ -11,7 +11,8 @@ ingresando sus credenciales. La tabla usuarios deriba o extiende de la tabla per
 se crean como empleados pero NO se les asigna usuario ni contraseña, ya ellos No van a utilizar el sistema
 pre-requisito:
    1. El usuario se debe crear como empleado de la compañía y se le asignará un usuario y una contraseña
-   2. El empleado debe estar en estado 1, que significa activo. Sí el empleado se encuentra en estado 0, significa inactivo
+   2. El empleado debe estar en estado 1, que significa activo. Sí el empleado se encuentra en estado 0, significa inactivo y no
+      podrá utilizar el sistema
 Funcionalidad:
 El empleado tendrá acceso a algunas funcionalidades del sistema dependiendo de los permisos relacionados al rol de sus credenciales
 
@@ -27,29 +28,137 @@ SELECT per.nombres,per.apellidos,v.placa,m.descripcion,l.descripcion,v.modelo,v.
 " v.fk_marca=m.IDmarca INNER JOIN linea_vehiculo l ON v.fk_linea=l.IDlinea_vehiculo WHERE IDvehiculo=1";
 
 
+EVENTOS TABLA PARA TRANSFERIR LA INFORMACIÓN DE UNA FILA SELECCIONADA A LAS CAJAS DE TEXTO CORREPONDIENTES
+
+Vamos a la tabla y le damos click derecho para que nos muestre las propiedades, seleccionamos el control "evento" y dentro del evento
+seleccionamos "mouse" y "mouseClicked"
+En el evento MouseClicked de la tabla, vamos a crear una variable de tipo entera y le damos un nombre, esta varible se va a
+encargar de almacenar la fila donde damos click, esta varible va a ser igual al nombre de la tabla y obtenmos la fila selccionada
+con .getSelectdRow(). ej:
+
+int fila = tblNameTable.getSelectedRow();
+
+Luego vamos declarando los nombres de los campos de cada columna tal cual como están en la base de datos y obtenemos su valor
+
+
+MÓDULO DE PROPIETARIOS
+
+Un propietario es el dueño del vehículo que ingresa al taller para ser reparado, no se puede considerar como cliente final,
+ya que puede ser otra persona la que cancele el servicio.
+
+Un propietario puede tener asociados uno o muchos vehículos
+esta tabla extiende de la tabla persona lo que quiere decir que para realizar cambios en esta tabla, primero debemos realizar
+cambios en la tabla persona. Y esta funcionalidad permite crear, editar listar y eliminar registros de la tabla propietario 
+de la base de datos, 
+
+
 VEHICULOS
 
-Esta funcionalidad permite crear en la base de datos un vehículo para luego ser gestionado
-pre-requisito: el propietario debe estar creado en el sistema para poder obtener su ID y relacionarlo con el vehículo.
+Un vehículo es nuestro producto primario, la parte más importante del sistema, 
+Un vehículo puede tener uno o varios propietarios y un propietario puede tener uno o varios vehículos, pero ante el sistema sólo
+vamos a matricular el propietario por matricula
+
+Esta funcionalidad permite crear, listar, editar y eliminar un vehículo en la base de datos  para luego ser gestionado.
+esta funcionalidad la vamos a dividir en dos pasos. el primer paso es en el módulo de propietarios, donde se crea el vehículo
+y el segundo paso es en la opción de vehículos que es donde se va a gestionar el resto del CRUD.
+pre-requisito: el propietario debe estar creado en el sistema para poder obtener su ID y vincularlo con el vehículo.
 en el formulario de propietarios, se encuentra una tabla con el registo de propietarios, seleccionamos el propietario que
-vamos a relacionar con el vehículo, y damos click en el boton "Agregar", se debe desplegar una ventana con el listado de 
-vehículos existentes en la bd y la opción para crear un nuevo vehículo, damos click en el botón nuevo y las cajas de texto 
-deben quedar editables listas para recibir la nueva información. En caso tal de que el usuario NO seleccione ningún registro 
-de la tabla propietarios, el sistema arrojará un error y lanzará un mensaje de error pidiendo al usuario que selecciones un 
-propietario antes de continuar.
+vamos a vincular con el vehículo, y damos click en el boton "Agregar", se debe desplegar una ventana con el listado de 
+vehículos existentes en la bd y la opción para crear un nuevo vehículo. Las cajas de texto por defecto vienen inactivas, para
+activarlas damos click en el botón nuevo y las cajas de texto deben quedar editables listas para recibir la nueva información. 
+En caso tal de que el usuario NO seleccione ningún registro de la tabla propietarios, el sistema arrojará un error y lanzará un 
+mensaje de error pidiendo al usuario que selecciones un propietario antes de continuar.
 
 Error de ejecución los atributos marca y linea esperan un IDmarca y IDlinea y el formulario esta enviando Strigs porque para 
 llenar los datos del combobox en el formulario de precio pieza
+
+La consulta a la base de datos MySQL para que se muestre el vehículo por propietario se encuentra en la clase mdlVehiculo
+
+public DefaultTableModel mostrar(String buscar) {
+
+        DefaultTableModel modelo;
+
+        /* array string para almacenar los titulos columna de las dos tablas */
+        String[] titulos = {"IDvehiculo","idpropietario","Propietario","Placa", "Marca", "Linea", "Módelo", "Color"};
+
+        /* array string para almacenar los registros de fila */
+        String[] registro = new String[8];
+
+        totalregistros = 0;
+
+        modelo = new DefaultTableModel(null, titulos);
+
+        /* instrucción SQL que une las dos tablas con la instruccion INNER JOIN */
+        sSQL = "SELECT v.IDvehiculo,v.idpropietario,(SELECT nombres FROM persona WHERE IDpersona = v.idpropietario) "
+                + "as propietarion,v.placa,v.marca,v.linea,v.modelo,v.color FROM vehiculo v INNER JOIN propietario p ON v.idpropietario = p.IDpropietario WHERE placa LIKE '%" + buscar + "%' ORDER BY IDvehiculo DESC";
+
+        /* Capturador de errores */
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /* recorrer los registros de la tabla */
+            while (rs.next()) {
+                registro[0] = rs.getString("IDvehiculo");
+                registro[1] = rs.getString("idpropietario");
+                registro[2] = rs.getString("propietarion");
+                registro[3] = rs.getString("placa");
+                registro[4] = rs.getString("marca");
+                registro[5] = rs.getString("linea");
+                registro[6] = rs.getString("modelo");
+                registro[7] = rs.getString("color");
+
+                totalregistros = totalregistros + 1;
+                modelo.addRow(registro);
+
+            }
+
+            return modelo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+    }
+
+Para editar y eliminar un vehículo, utilizamos el siguiente código para validar las cajas de texto
+
+ if (!txtMarca.getText().isEmpty()) {
+
+        dts.setMarca(txtMarca.getText());
+
+    } else {
+            
+        int seleccionado = cboMarcaVehiculo.getSelectedIndex();
+        dts.setMarca(cboMarcaVehiculo.getItemAt(seleccionado).toString());
+            
+    }
+
+Para poder eliminar el vehículo, éste no debe tener vinculada una cotización, de lo contrario debe generar un mensaje de error
 
 
 MODULO COTIZACION
 
 Historia de usuario
-Cuándo un vehículo llegue al taller solicitando cotizar un arreglo, el jefe de patio debe realizar la respectiva cotización
+Cuándo un vehículo llegue al taller solicitando cotizar un arreglo, el jefe de patio debe realizar una cotización al cliente,
+la cotización debe tener consignada
+1. El número de la cotización
+2. Fecha de cotización
+3. Datos del vehículo y propietario
+4. La descripción de la pieza afectada y el valor a cobrar por la reparación
+5. El porcentaje del IVA
+6. El valor del IVA
+7. El total a pagar
+El proceso para realizar una cotización es el siguiente:
+De manera visual el jefe de patio realizar una inspección lo más detallada posible de los daños del vehículo, ésta cotización 
+puede variar a lo largo del tiempo a medida que el operario realice el desarmado del vehículo y encuente nuevos daños que no se 
+pudieron visualizar incialmente. Por lo tanto el sistema debe ser capaz de reajustar la cotización
+
 pre-requisito: 
- 1. Debe haber un vehículo creado en la base de datos
+ 1. Debe haber un vehículo creado en la base de datos para obtener su ID y poder relacionarlo con la cotización
  2. Debe existir una tabla en la base de datos que tenga los valores a cobrar por el arreglo de cada pieza o accesorio que
-    conforma un vehículo 
+    conforma un vehículo
+
 Requisitos funcionales
  1. Para el módulo Datos de la cotización, al hacer click sobre el botón Nuevo, en el campo Nro cotizacion, el sistema debe traer
     de la base de datos, el último ID de la cotización anterior y le debe incrementar un dígito y lo muestre en el campo cotización nro.
@@ -58,7 +167,14 @@ Requisitos funcionales
     3. En el bloque; datos del vehículo, damos click en el icono de buscar para que nos traiga el registro del vehículo que vamos
        a afectar, lo seleccionamos y damos click en el botón guardar. Ya con la cotización creada en la tabla seleccionamos el
        registro que acabamos de crear y damos click en el botón agragar detalle, se abre una nueva ventana que muestra la placa
-       del vehículo que no es editable,  con luego se van agregando las piezas, hay que crear primero el valor de los servicios
+       del vehículo que no es editable,  con luego se van agregando las piezas, hay que crear primero el valor de los servicios.
+una cotización no se puede editar o eliminar sí ya tiene datos relacionados entonces tendríamos que eliminar los datos y 
+editar la cotzación o eliminar la cotización y realizar una nueva
+PENDIENTES:
+1. Crear en el BackEnd la función para validar que la cotización no tenga un vehículo creado
+2.
+
+Nota: tener en cuenta que el ID del vehículo que trae la consulta a la caja de texto coincida con el ID existente en la BD
 
 METODO CARGAR COMBOBOX
 crear un método global que cargue todos los combos del sistema para mostrar la marca y la línea de los vehículo, y sobrecargar 
@@ -68,3 +184,99 @@ Cargar los comboBox de la aplicación con los datos que se encuentran guardados 
 error de ejecucion "incompatible types: JComboBox<String> cannot be converted to JComboBox<ctrMarca>"
 Solución, damos click sobre el comboBox y nos vamos a propiedades, nos vamos a la pestaña codigo y cambiamos el tipo de <String>
 a <ctrMarca> o al tipo de datos que solicite
+
+METODO PARA CONSULTAR REGISTROS Y QUE NO PERMITA DUPLICADOS
+
+En el módelo, creamos un método boleano que va a recibir un parámetro de tipo String y va a realizar una consulta a la base de 
+datos y devolverá verdadero o falso en caso de encontrar un registro igual al que viene por parámetro y . 
+
+public boolean registroDuplicado(String placa) {
+        boolean respuesta = false;
+        sSQL = "SELECT placa FROM vehiculo WHERE placa = '" + placa + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+                respuesta = true;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+
+        }
+        return respuesta;
+    }
+
+En el método guardar mandamos llamar la función
+
+if (accion.equals("guardar")) {
+
+            if (!func.registroDuplicado(txtPlaca.getText().trim())) {
+
+                if (func.insertar(dts)) {
+                    JOptionPane.showMessageDialog(rootPane, "El vehículo fué registrado con éxito");
+                    mostrar("");
+                    inhabilitar();
+                }
+
+            } else {
+                
+                JOptionPane.showMessageDialog(rootPane, "Esta placa ya existe en la base de datos");
+                
+            }
+
+        } else if (accion.equals("editar")) {
+            dts.setIDpropietario(Integer.parseInt(txtIdpropietario.getText()));
+
+            if (func.editar(dts)) {
+                JOptionPane.showMessageDialog(rootPane, "El vehículo fué modificado con éxito");
+                mostrar("");
+                inhabilitar();
+            }
+        }
+
+MODULO INGRESO DE VEHÍCULO AL TALLER
+Este módulo se encuntra en la pestaña de Ventas opción ingreso
+Después de que se realice una cotización el vehículo puede que no lo dejen y vuelvan luego para dejar definitivamente el vehículo
+para su reparación. Ahí viene otro proceso de registro de ingreso al taller y el inicio de labores para su reparción.
+Después de hacer el ingreso se le asignará un turno para ser reparado, el turno debe estar libre
+buscar por numero de cotizacion
+
+MODULO ORDEN TRABAJO:
+Este módulo asigna a un empleado una tarea que esta consignada en una cotización.
+El objetivo de este módulo es controlar que empleado realizó la labor y cuanto cobró por realizar la tarea, este valor
+se debe descontar del valor de la cotización ejemplo sí una pieza pintada custa $360000; al latonero se le paga un porcentaje
+del valor del total de la pieza (se puede pactar con el empleado que su labor incluya armar y desarmar, al pintor otro porcentaje
+y todo esto no debe sumar más del 40% del total del valor de la pieza. Este módulo sirve también para liquidar el salario del
+trabajador, pues podemos sumar que piezas terminó durante la semana aplicando un filtro 
+
+DESPLIEGUE
+
+REQUISITOS:
+1. Servidor MySQL (WAMP, LAMP (Linux), MAMP (Mack) o XAMPP (Windows)) Para alojar nuestra base de datos. Para esto lo primero
+   que debemos hacer es exportar la base de datos del entorno inicial de desarrollo e importar el archivo SQL a la nueva maquina.
+   al cambiar nuestra base de datos de equipo debemos cambiar también el archivo de conexión que apunta a una ruta especifica y a
+   una base de datos especifica por eso debemos tener presente que sí cambiamos el nombre de la base de datos, también debemos
+   cambiarlo en nuestro archivo de conexion. Sí vamos a trabajar con un computador en red, debemos cambiar el nombre del servidor
+   que en el caso inicial es "localhost" y debemos reemplazarlo por la dirección IP del computador, para averiguar la IP del
+   computador pulsamos la tecla windows + r, y en la ventana de comandos escribimos el comando CMD, se nos despliega la nueva
+   ventana donde vamos a escribir el comando "ipconfig" para que nos muestre la dirección IP. Para darle una mayor seguridad a
+   nuestra base de datos vamos a crear un usuario y una contraseña para esta base de datos especifica, en la opción privilegios
+   del XAMPP buscamos la opción "Agregar usuario", creamos un nuevo usuario y su contraseña para ésta base de datos. Todos estos
+   cambios debemos realizarlos también en el XAMPP. Estos cambios debemos realizarloS antes de generar el archivo JAR.
+
+NOTA: Antes de continuar vamos a validar que formulario de inicio se abre por defecto, esto lo validamos haciendo click derecho
+      sobre nuestro proyecto y seleccionando la opción de "propiedades", en la ventada que se despliega buscamos la opción "Run".
+      seleccionamos la opcion de "Browse" se depliegan todos los formularios que creamos a lo largo del sistema y seleccionamos
+      el formulario de login, que por lo general es el primero que se debe abrir al ejecutar una aplicación
+
+Para generar el achivo de instalacion o JAR, hacemos click derecho sobre nuestro proyecto, seleccionamos la opcion que dece 
+limpiar y contruir (clean and build) y esperamos que el sistema genere el archivo. En el directorio donde creamos el sistema nos
+debe aparecer otra carpeta llamada "dist" y dentro debe estar el archivo .JAR. Sí ejecutamos nuestra aplicación así vamos a tener
+problemas con los reportes, para solucionar esto del directorio de archivos copiamos "src" que es donde están alojados todos los
+reportes, las demás carpetas las podemos borrar
+
+2. JRE (Entorno de ejecución de JAVA) Google buscamos JRE, y descargamos el instalador dependiendo de nuestro sistema operativo
+3. Archivos RAR, Librerias (Generado por el IDE de desarrollo)
